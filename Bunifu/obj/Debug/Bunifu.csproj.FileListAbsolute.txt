@@ -45,3 +45,6 @@ E:\Sem6\PRN211\ProjectPRN\Bunifu\obj\Debug\Bunifu.csproj.Fody.CopyLocal.cache
 E:\Sem6\PRN211\ProjectPRN\Bunifu\obj\Debug\Bunifu.csproj.CopyComplete
 E:\Sem6\PRN211\ProjectPRN\Bunifu\obj\Debug\Bunifu.exe
 E:\Sem6\PRN211\ProjectPRN\Bunifu\obj\Debug\Bunifu.pdb
+E:\Sem6\PRN211\ProjectPRN\Bunifu\obj\Debug\Bunifu.Main.resources
+E:\Sem6\PRN211\ProjectPRN\Bunifu\obj\Debug\Bunifu.Registration.resources
+E:\Sem6\PRN211\ProjectPRN\Bunifu\obj\Debug\Bunifu.SetupMoneyWife.resources

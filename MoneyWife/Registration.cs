@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace MoneyWife
 {
@@ -18,11 +20,45 @@ namespace MoneyWife
             InitializeComponent();
         }
 
-        MoneyWifeContext context = new MoneyWifeContext();
+        public Registration(User newUser)
+        {
+            this.newUser = newUser;
+            InitializeComponent();
+            txtName.Text = newUser.Username;
+            txtPassword.Text = newUser.Password;
+            txtConfirmPassword.Text = newUser.Password;
+            txtFullname.Text = newUser.Fullname;
+            if (newUser.Phone == "")
+            {
+                txtPhoneEmail.Text = newUser.Email;
+            }
+            else
+            {
+                txtPhoneEmail.Text = newUser.Phone;
+            }
+            //if gender of newUser is male then radMale is checked
+            switch (newUser.Gender)
+            {
+                case "male":
+                    radMale.Checked = true;
+                    break;
+                case "female":
+                    radFemale.Checked = true;
+                    break;
+                case "other":
+                    radOther.Checked = true;
+                    break;
+            }
+            txtLocation.Text = newUser.Location;
+        }
 
+        MoneyWifeContext context = new MoneyWifeContext();
+        private User newUser;
 
         private void btnRegister_Click(object sender, EventArgs e)
         {
+            //disable this button
+            btnRegister.Enabled = false;
             //get text from txtUsername, txtPassword, txtConfirmPassword, txtFullname, txtPhoneMail, rad gender, txtLocation
             string username = txtName.Text;
             string password = txtPassword.Text;
@@ -83,7 +119,6 @@ namespace MoneyWife
                 MessageBox.Show("Phone or email is not valid");
                 return;
             }
-
             // New user
             User newUser = new User()
             {
@@ -95,24 +130,9 @@ namespace MoneyWife
                 Gender = gender,
                 Location = location
             };
-            //Add new user to database and notification if add new user successfully
-            if (context.Users.Add(newUser) != null)
-            {
-                context.SaveChanges();
-                MessageBox.Show("Register successfully");
-                ////open setupyourmoney form and close this form
-                //SetupMoneyWife setup = new SetupMoneyWife();
-                //setup.Show();
-                //this.Hide();
-                ////open login form with username parameter and close register form
-                //Password login = new Password(username);
-                //login.Show();
-                //this.Hide();
-            }
-            else
-            {
-                MessageBox.Show("Register failed");
-            }
+            SetupMoneyWife setup = new SetupMoneyWife(newUser);
+            setup.Show();
+            this.Hide();
         }
 
         private void btnBackToLogin_Click(object sender, EventArgs e)

@@ -400,7 +400,7 @@
             this.btnLogin.AutoSizeLeftIcon = true;
             this.btnLogin.AutoSizeRightIcon = true;
             this.btnLogin.BackColor = System.Drawing.Color.Transparent;
-            this.btnLogin.BackColor1 = System.Drawing.Color.ForestGreen;
+            this.btnLogin.BackColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(96)))), ((int)(((byte)(144)))));
             this.btnLogin.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnLogin.BackgroundImage")));
             this.btnLogin.BorderStyle = Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderStyles.Solid;
             this.btnLogin.ButtonText = "Login";
@@ -418,7 +418,7 @@
             this.btnLogin.DisabledForecolor = System.Drawing.Color.FromArgb(((int)(((byte)(168)))), ((int)(((byte)(160)))), ((int)(((byte)(168)))));
             this.btnLogin.FocusState = Bunifu.UI.WinForms.BunifuButton.BunifuButton2.ButtonStates.Pressed;
             this.btnLogin.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnLogin.ForeColor = System.Drawing.Color.White;
+            this.btnLogin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.btnLogin.IconLeftAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnLogin.IconLeftCursor = System.Windows.Forms.Cursors.Default;
             this.btnLogin.IconLeftPadding = new System.Windows.Forms.Padding(11, 3, 3, 3);
@@ -428,10 +428,10 @@
             this.btnLogin.IconRightCursor = System.Windows.Forms.Cursors.Default;
             this.btnLogin.IconRightPadding = new System.Windows.Forms.Padding(3, 3, 7, 3);
             this.btnLogin.IconSize = 25;
-            this.btnLogin.IdleBorderColor = System.Drawing.Color.DarkGreen;
+            this.btnLogin.IdleBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(96)))), ((int)(((byte)(144)))));
             this.btnLogin.IdleBorderRadius = 20;
             this.btnLogin.IdleBorderThickness = 1;
-            this.btnLogin.IdleFillColor = System.Drawing.Color.ForestGreen;
+            this.btnLogin.IdleFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(96)))), ((int)(((byte)(144)))));
             this.btnLogin.IdleIconLeftImage = null;
             this.btnLogin.IdleIconRightImage = null;
             this.btnLogin.IndicateFocus = false;
@@ -453,12 +453,12 @@
             this.btnLogin.onHoverState.ForeColor = System.Drawing.Color.White;
             this.btnLogin.onHoverState.IconLeftImage = null;
             this.btnLogin.onHoverState.IconRightImage = null;
-            this.btnLogin.OnIdleState.BorderColor = System.Drawing.Color.DarkGreen;
+            this.btnLogin.OnIdleState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(96)))), ((int)(((byte)(144)))));
             this.btnLogin.OnIdleState.BorderRadius = 20;
             this.btnLogin.OnIdleState.BorderStyle = Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderStyles.Solid;
             this.btnLogin.OnIdleState.BorderThickness = 1;
-            this.btnLogin.OnIdleState.FillColor = System.Drawing.Color.ForestGreen;
-            this.btnLogin.OnIdleState.ForeColor = System.Drawing.Color.White;
+            this.btnLogin.OnIdleState.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(96)))), ((int)(((byte)(144)))));
+            this.btnLogin.OnIdleState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.btnLogin.OnIdleState.IconLeftImage = null;
             this.btnLogin.OnIdleState.IconRightImage = null;
             this.btnLogin.OnPressedState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(96)))), ((int)(((byte)(144)))));
@@ -476,9 +476,11 @@
             this.btnLogin.TextMarginLeft = 0;
             this.btnLogin.TextPadding = new System.Windows.Forms.Padding(0);
             this.btnLogin.UseDefaultRadiusAndThickness = true;
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click_1);
             // 
             // Login
             // 
+            this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(427, 386);
