@@ -8,6 +8,7 @@ namespace MoneyWife.Models
         public User()
         {
             Money = new HashSet<Money>();
+            Transactions = new HashSet<Transaction>();
         }
 
         public int Id { get; set; }
@@ -20,5 +21,6 @@ namespace MoneyWife.Models
         public string? Location { get; set; }
 
         public virtual ICollection<Money> Money { get; set; }
+        public virtual ICollection<Transaction> Transactions { get; set; }
     }
 }

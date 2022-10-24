@@ -4,6 +4,9 @@
     <Compile Update="Login.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Main.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Registration.cs">
       <SubType>Form</SubType>
     </Compile>

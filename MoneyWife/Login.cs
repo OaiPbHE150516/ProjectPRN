@@ -73,24 +73,32 @@ namespace MoneyWife
             //get text from txtUsername and txtPassword
             string username = txtUsername.Text;
             string password = txtPassword.Text;
-            MessageBox.Show("username: " + username + " password: " + password);
             //check if username and password is empty
             if (username == "" || password == "")
             {
                 MessageBox.Show("Username or password is empty");
                 return;
             }
+            //disable login button and show loading
+            btnLogin.Enabled = false;
+            bnfLoader.Visible = true;
             //check if username and password is correct
             User? user = context.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
-            MessageBox.Show("user: " + user.Username);
             if (user != null)
             {
-                MessageBox.Show("Login successfully");
+                //open main form and close login form
+                Main main = new Main(user);
+                main.Show();
+                btnLogin.Enabled = true;
+                bnfLoader.Visible = false;
+                this.Hide();
             }
             else
             {
                 //if incorrect then show message
                 MessageBox.Show("Username or password is incorrect");
+                btnLogin.Enabled = true;
+                bnfLoader.Visible = false;
             }
         }
     }

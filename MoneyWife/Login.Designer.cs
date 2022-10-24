@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties1 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
             Bunifu.UI.WinForms.BunifuTextBox.StateProperties stateProperties2 = new Bunifu.UI.WinForms.BunifuTextBox.StateProperties();
@@ -47,6 +48,7 @@
             this.btnRegister = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2();
             this.bunifuPictureBox1 = new Bunifu.UI.WinForms.BunifuPictureBox();
             this.btnLogin = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2();
+            this.bnfLoader = new Bunifu.UI.WinForms.BunifuLoader();
             ((System.ComponentModel.ISupportInitialize)(this.bunifuPictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -478,12 +480,39 @@
             this.btnLogin.UseDefaultRadiusAndThickness = true;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click_1);
             // 
+            // bnfLoader
+            // 
+            this.bnfLoader.AllowStylePresets = true;
+            this.bnfLoader.BackColor = System.Drawing.Color.Transparent;
+            this.bnfLoader.CapStyle = Bunifu.UI.WinForms.BunifuLoader.CapStyles.Round;
+            this.bnfLoader.Color = System.Drawing.Color.DodgerBlue;
+            this.bnfLoader.Colors = new Bunifu.UI.WinForms.Bloom[0];
+            this.bnfLoader.Customization = "";
+            this.bnfLoader.DashWidth = 0.5F;
+            this.bnfLoader.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.bnfLoader.Image = null;
+            this.bnfLoader.Location = new System.Drawing.Point(187, 338);
+            this.bnfLoader.Name = "bnfLoader";
+            this.bnfLoader.NoRounding = false;
+            this.bnfLoader.Preset = Bunifu.UI.WinForms.BunifuLoader.StylePresets.Solid;
+            this.bnfLoader.RingStyle = Bunifu.UI.WinForms.BunifuLoader.RingStyles.Solid;
+            this.bnfLoader.ShowText = false;
+            this.bnfLoader.Size = new System.Drawing.Size(40, 40);
+            this.bnfLoader.Speed = 7;
+            this.bnfLoader.TabIndex = 10;
+            this.bnfLoader.Text = "bunifuLoader1";
+            this.bnfLoader.TextPadding = new System.Windows.Forms.Padding(0);
+            this.bnfLoader.Thickness = 6;
+            this.bnfLoader.Transparent = true;
+            this.bnfLoader.Visible = false;
+            // 
             // Login
             // 
             this.AcceptButton = this.btnLogin;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(427, 386);
+            this.Controls.Add(this.bnfLoader);
             this.Controls.Add(this.btnLogin);
             this.Controls.Add(this.bunifuPictureBox1);
             this.Controls.Add(this.btnRegister);
@@ -511,5 +540,6 @@
         private Bunifu.UI.WinForms.BunifuButton.BunifuButton2 btnRegister;
         private Bunifu.UI.WinForms.BunifuPictureBox bunifuPictureBox1;
         private Bunifu.UI.WinForms.BunifuButton.BunifuButton2 btnLogin;
+        private Bunifu.UI.WinForms.BunifuLoader bnfLoader;
     }
 }

@@ -48,3 +48,5 @@ E:\Sem6\PRN211\ProjectPRN\Bunifu\obj\Debug\Bunifu.pdb
 E:\Sem6\PRN211\ProjectPRN\Bunifu\obj\Debug\Bunifu.Main.resources
 E:\Sem6\PRN211\ProjectPRN\Bunifu\obj\Debug\Bunifu.Registration.resources
 E:\Sem6\PRN211\ProjectPRN\Bunifu\obj\Debug\Bunifu.SetupMoneyWife.resources
+E:\Sem6\PRN211\ProjectPRN\Bunifu\bin\Debug\Bunifu.Charts.WinForms.xml
+E:\Sem6\PRN211\ProjectPRN\Bunifu\bin\Debug\Bunifu.Dataviz.WinForms.xml

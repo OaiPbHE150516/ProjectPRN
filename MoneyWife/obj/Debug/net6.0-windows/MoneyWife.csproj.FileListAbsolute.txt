@@ -141,3 +141,4 @@ E:\Sem6\PRN211\ProjectPRN\MoneyWife\obj\Debug\net6.0-windows\refint\MoneyWife.dl
 E:\Sem6\PRN211\ProjectPRN\MoneyWife\obj\Debug\net6.0-windows\MoneyWife.pdb
 E:\Sem6\PRN211\ProjectPRN\MoneyWife\obj\Debug\net6.0-windows\MoneyWife.genruntimeconfig.cache
 E:\Sem6\PRN211\ProjectPRN\MoneyWife\obj\Debug\net6.0-windows\ref\MoneyWife.dll
+E:\Sem6\PRN211\ProjectPRN\MoneyWife\obj\Debug\net6.0-windows\MoneyWife.Main.resources
