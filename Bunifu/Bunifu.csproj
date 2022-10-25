@@ -252,6 +252,12 @@
     <Compile Include="SetupMoneyWife.Designer.cs">
       <DependentUpon>SetupMoneyWife.cs</DependentUpon>
     </Compile>
+    <Compile Include="TestButton.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestButton.Designer.cs">
+      <DependentUpon>TestButton.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -273,6 +279,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SetupMoneyWife.resx">
       <DependentUpon>SetupMoneyWife.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestButton.resx">
+      <DependentUpon>TestButton.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

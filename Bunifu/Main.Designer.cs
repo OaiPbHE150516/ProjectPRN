@@ -151,6 +151,7 @@
             this.btnCash = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2();
             this.btnBank = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2();
             this.btnTotal = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2();
+            this.lblRequiredType = new Bunifu.UI.WinForms.BunifuLabel();
             this.bnfPageMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -164,7 +165,8 @@
             this.bnfPageMain.Controls.Add(this.tabPage1);
             this.bnfPageMain.Controls.Add(this.tabPage2);
             this.bnfPageMain.Controls.Add(this.tabPage3);
-            this.bnfPageMain.Location = new System.Drawing.Point(2, 124);
+            this.bnfPageMain.Cursor = System.Windows.Forms.Cursors.Default;
+            this.bnfPageMain.Location = new System.Drawing.Point(12, 124);
             this.bnfPageMain.Multiline = true;
             this.bnfPageMain.Name = "bnfPageMain";
             this.bnfPageMain.Page = this.tabPage2;
@@ -282,6 +284,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.lblRequiredType);
             this.tabPage2.Controls.Add(this.btnAddTypeIncome);
             this.tabPage2.Controls.Add(this.btnBankIncome);
             this.tabPage2.Controls.Add(this.btnCashIncome);
@@ -584,7 +587,7 @@
             // 
             this.btnStock.AllowAnimations = true;
             this.btnStock.AllowMouseEffects = true;
-            this.btnStock.AllowToggling = false;
+            this.btnStock.AllowToggling = true;
             this.btnStock.AnimationSpeed = 200;
             this.btnStock.AutoGenerateColors = false;
             this.btnStock.AutoRoundBorders = false;
@@ -626,7 +629,7 @@
             this.btnStock.IdleFillColor = System.Drawing.Color.Transparent;
             this.btnStock.IdleIconLeftImage = ((System.Drawing.Image)(resources.GetObject("btnStock.IdleIconLeftImage")));
             this.btnStock.IdleIconRightImage = null;
-            this.btnStock.IndicateFocus = false;
+            this.btnStock.IndicateFocus = true;
             this.btnStock.Location = new System.Drawing.Point(183, 319);
             this.btnStock.Name = "btnStock";
             this.btnStock.OnDisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(191)))));
@@ -673,7 +676,7 @@
             // 
             this.btnChoThue.AllowAnimations = true;
             this.btnChoThue.AllowMouseEffects = true;
-            this.btnChoThue.AllowToggling = false;
+            this.btnChoThue.AllowToggling = true;
             this.btnChoThue.AnimationSpeed = 200;
             this.btnChoThue.AutoGenerateColors = false;
             this.btnChoThue.AutoRoundBorders = false;
@@ -715,7 +718,7 @@
             this.btnChoThue.IdleFillColor = System.Drawing.Color.Transparent;
             this.btnChoThue.IdleIconLeftImage = ((System.Drawing.Image)(resources.GetObject("btnChoThue.IdleIconLeftImage")));
             this.btnChoThue.IdleIconRightImage = null;
-            this.btnChoThue.IndicateFocus = false;
+            this.btnChoThue.IndicateFocus = true;
             this.btnChoThue.Location = new System.Drawing.Point(17, 319);
             this.btnChoThue.Name = "btnChoThue";
             this.btnChoThue.OnDisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(191)))));
@@ -762,7 +765,7 @@
             // 
             this.btnThuLai.AllowAnimations = true;
             this.btnThuLai.AllowMouseEffects = true;
-            this.btnThuLai.AllowToggling = false;
+            this.btnThuLai.AllowToggling = true;
             this.btnThuLai.AnimationSpeed = 200;
             this.btnThuLai.AutoGenerateColors = false;
             this.btnThuLai.AutoRoundBorders = false;
@@ -804,7 +807,7 @@
             this.btnThuLai.IdleFillColor = System.Drawing.Color.Transparent;
             this.btnThuLai.IdleIconLeftImage = ((System.Drawing.Image)(resources.GetObject("btnThuLai.IdleIconLeftImage")));
             this.btnThuLai.IdleIconRightImage = null;
-            this.btnThuLai.IndicateFocus = false;
+            this.btnThuLai.IndicateFocus = true;
             this.btnThuLai.Location = new System.Drawing.Point(847, 263);
             this.btnThuLai.Name = "btnThuLai";
             this.btnThuLai.OnDisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(191)))));
@@ -851,7 +854,7 @@
             // 
             this.btnLoiNhuan.AllowAnimations = true;
             this.btnLoiNhuan.AllowMouseEffects = true;
-            this.btnLoiNhuan.AllowToggling = false;
+            this.btnLoiNhuan.AllowToggling = true;
             this.btnLoiNhuan.AnimationSpeed = 200;
             this.btnLoiNhuan.AutoGenerateColors = false;
             this.btnLoiNhuan.AutoRoundBorders = false;
@@ -893,7 +896,7 @@
             this.btnLoiNhuan.IdleFillColor = System.Drawing.Color.Transparent;
             this.btnLoiNhuan.IdleIconLeftImage = ((System.Drawing.Image)(resources.GetObject("btnLoiNhuan.IdleIconLeftImage")));
             this.btnLoiNhuan.IdleIconRightImage = null;
-            this.btnLoiNhuan.IndicateFocus = false;
+            this.btnLoiNhuan.IndicateFocus = true;
             this.btnLoiNhuan.Location = new System.Drawing.Point(681, 263);
             this.btnLoiNhuan.Name = "btnLoiNhuan";
             this.btnLoiNhuan.OnDisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(191)))));
@@ -1385,7 +1388,7 @@
             // 
             this.btnDauTu.AllowAnimations = true;
             this.btnDauTu.AllowMouseEffects = true;
-            this.btnDauTu.AllowToggling = false;
+            this.btnDauTu.AllowToggling = true;
             this.btnDauTu.AnimationSpeed = 200;
             this.btnDauTu.AutoGenerateColors = false;
             this.btnDauTu.AutoRoundBorders = false;
@@ -1427,7 +1430,7 @@
             this.btnDauTu.IdleFillColor = System.Drawing.Color.Transparent;
             this.btnDauTu.IdleIconLeftImage = ((System.Drawing.Image)(resources.GetObject("btnDauTu.IdleIconLeftImage")));
             this.btnDauTu.IdleIconRightImage = null;
-            this.btnDauTu.IndicateFocus = false;
+            this.btnDauTu.IndicateFocus = true;
             this.btnDauTu.Location = new System.Drawing.Point(515, 263);
             this.btnDauTu.Name = "btnDauTu";
             this.btnDauTu.OnDisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(191)))));
@@ -1474,7 +1477,7 @@
             // 
             this.btnTienThuong.AllowAnimations = true;
             this.btnTienThuong.AllowMouseEffects = true;
-            this.btnTienThuong.AllowToggling = false;
+            this.btnTienThuong.AllowToggling = true;
             this.btnTienThuong.AnimationSpeed = 200;
             this.btnTienThuong.AutoGenerateColors = false;
             this.btnTienThuong.AutoRoundBorders = false;
@@ -1516,7 +1519,7 @@
             this.btnTienThuong.IdleFillColor = System.Drawing.Color.Transparent;
             this.btnTienThuong.IdleIconLeftImage = ((System.Drawing.Image)(resources.GetObject("btnTienThuong.IdleIconLeftImage")));
             this.btnTienThuong.IdleIconRightImage = null;
-            this.btnTienThuong.IndicateFocus = false;
+            this.btnTienThuong.IndicateFocus = true;
             this.btnTienThuong.Location = new System.Drawing.Point(349, 263);
             this.btnTienThuong.Name = "btnTienThuong";
             this.btnTienThuong.OnDisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(191)))));
@@ -1558,12 +1561,13 @@
             this.btnTienThuong.TextMarginLeft = 0;
             this.btnTienThuong.TextPadding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.btnTienThuong.UseDefaultRadiusAndThickness = true;
+            this.btnTienThuong.Click += new System.EventHandler(this.btnTienThuong_Click);
             // 
             // btnTienLuong
             // 
             this.btnTienLuong.AllowAnimations = true;
             this.btnTienLuong.AllowMouseEffects = true;
-            this.btnTienLuong.AllowToggling = false;
+            this.btnTienLuong.AllowToggling = true;
             this.btnTienLuong.AnimationSpeed = 200;
             this.btnTienLuong.AutoGenerateColors = false;
             this.btnTienLuong.AutoRoundBorders = false;
@@ -1605,7 +1609,7 @@
             this.btnTienLuong.IdleFillColor = System.Drawing.Color.Transparent;
             this.btnTienLuong.IdleIconLeftImage = ((System.Drawing.Image)(resources.GetObject("btnTienLuong.IdleIconLeftImage")));
             this.btnTienLuong.IdleIconRightImage = null;
-            this.btnTienLuong.IndicateFocus = false;
+            this.btnTienLuong.IndicateFocus = true;
             this.btnTienLuong.Location = new System.Drawing.Point(183, 263);
             this.btnTienLuong.Name = "btnTienLuong";
             this.btnTienLuong.OnDisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(191)))));
@@ -1647,12 +1651,14 @@
             this.btnTienLuong.TextMarginLeft = 0;
             this.btnTienLuong.TextPadding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.btnTienLuong.UseDefaultRadiusAndThickness = true;
+            this.btnTienLuong.Click += new System.EventHandler(this.btnTienLuong_Click);
             // 
             // btnMeCho
             // 
+            this.btnMeCho.AccessibleRole = System.Windows.Forms.AccessibleRole.CheckButton;
             this.btnMeCho.AllowAnimations = true;
             this.btnMeCho.AllowMouseEffects = true;
-            this.btnMeCho.AllowToggling = false;
+            this.btnMeCho.AllowToggling = true;
             this.btnMeCho.AnimationSpeed = 200;
             this.btnMeCho.AutoGenerateColors = false;
             this.btnMeCho.AutoRoundBorders = false;
@@ -1694,7 +1700,7 @@
             this.btnMeCho.IdleFillColor = System.Drawing.Color.Transparent;
             this.btnMeCho.IdleIconLeftImage = ((System.Drawing.Image)(resources.GetObject("btnMeCho.IdleIconLeftImage")));
             this.btnMeCho.IdleIconRightImage = null;
-            this.btnMeCho.IndicateFocus = false;
+            this.btnMeCho.IndicateFocus = true;
             this.btnMeCho.Location = new System.Drawing.Point(17, 263);
             this.btnMeCho.Name = "btnMeCho";
             this.btnMeCho.OnDisabledState.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(191)))), ((int)(((byte)(191)))));
@@ -1736,6 +1742,7 @@
             this.btnMeCho.TextMarginLeft = 0;
             this.btnMeCho.TextPadding = new System.Windows.Forms.Padding(20, 0, 0, 0);
             this.btnMeCho.UseDefaultRadiusAndThickness = true;
+            this.btnMeCho.Click += new System.EventHandler(this.btnMeCho_Click);
             // 
             // bunifuLabel6
             // 
@@ -4495,11 +4502,27 @@
             this.btnTotal.TextPadding = new System.Windows.Forms.Padding(0);
             this.btnTotal.UseDefaultRadiusAndThickness = true;
             // 
+            // lblRequiredType
+            // 
+            this.lblRequiredType.AllowParentOverrides = false;
+            this.lblRequiredType.AutoEllipsis = false;
+            this.lblRequiredType.CursorType = System.Windows.Forms.Cursors.Default;
+            this.lblRequiredType.Font = new System.Drawing.Font("Segoe UI Semibold", 9.75F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))));
+            this.lblRequiredType.ForeColor = System.Drawing.Color.Firebrick;
+            this.lblRequiredType.Location = new System.Drawing.Point(118, 240);
+            this.lblRequiredType.Name = "lblRequiredType";
+            this.lblRequiredType.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lblRequiredType.Size = new System.Drawing.Size(63, 17);
+            this.lblRequiredType.TabIndex = 51;
+            this.lblRequiredType.Text = "Required *";
+            this.lblRequiredType.TextAlignment = System.Drawing.ContentAlignment.TopLeft;
+            this.lblRequiredType.TextFormat = Bunifu.UI.WinForms.BunifuLabel.TextFormattingOptions.Default;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1027, 616);
+            this.ClientSize = new System.Drawing.Size(1043, 604);
             this.Controls.Add(this.btnTotal);
             this.Controls.Add(this.btnBank);
             this.Controls.Add(this.btnCash);
@@ -4588,5 +4611,6 @@
         private UI.WinForms.BunifuButton.BunifuButton2 btnCashExpense;
         private UI.WinForms.BunifuButton.BunifuButton2 btnAddTypeIncome;
         private UI.WinForms.BunifuButton.BunifuButton2 btnAddTypeExpense;
+        private UI.WinForms.BunifuLabel lblRequiredType;
     }
 }

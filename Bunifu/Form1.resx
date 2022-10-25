@@ -185,7 +185,7 @@
   <data name="bunifuPictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        oQAAC6EBgWviXAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAGlKSURBVHhe7Z0H
+        nwAAC58B/t6f/AAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAGlKSURBVHhe7Z0H
         mBRF+oeXsNszC6jnme/O83LwzvvfrdDdC8pKXnJaQOJud+9KDgIShQVUUFCCAiIgSjCCoogJEyqIioqK
         +fT09EynGDFL/evrLU4cPmB6pif09O99nvcRlZ2dqq76qrq76qs8AACI6o4RNexFEcN6IWLYn0s/kz4n
         /9ulhY2sU9VfAwAAAEAucJhpH6kZ9jo52IuDuCeiW9fk6X0OUz8GAAAAgKBS2Ng6QQ7uL8cM9gfWtHfW
@@ -654,5 +654,25 @@
         1XXxsqhCdcgJ7MoOH+2NoJ+0ZJDetNKjlieir7eXv7uKEyjHRt7Yn8cvvAAM6fch3bSlq7ZJS18R/QNR
         OwC3o/b6ugAAAABJRU5ErkJggg==
 </value>
+  </data>
+  <data name="bunifuButton23.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAJYAAAAnCAYAAADtl7EyAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACRSURBVHhe7dKxAUBAAMBAk/zK7GcM/WMAFdJdcVXaLGOb
+        +9jOE/4z93uspwDfGIuEsUgYi4SxSBiLhLFIGIuEsUgYi4SxSBiLhLFIGIuEsUgYi4SxSBiLhLFIGIuE
+        sUgYi4SxSBiLhLFIGIuEsUgYi4SxSBiLhLFIGIuEsUgYi4SxSBiLhLFILGOdx1OA19Z5XLF9Eabs0yP2
+        AAAAAElFTkSuQmCC
+</value>
+  </data>
+  <data name="bunifuButton24.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAFoAAAAnCAYAAACPFF8dAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACDSURBVGhD7dChAYAwAMAwLtnL8B9n4Dc4AAlVEVF13cYx
+        z3GsxZ/m+Yx+C3zN6IjREaMjRkeMjhgdMTpidMToiNERoyNGR4yOGB0xOmJ0xOiI0RGjI0ZHjI4YHTE6
+        YnTE6IjREaMjRkeMjhgdMTpidMToiNERoyNGR7axz+st8KF9XjfYbaP/xjZE+QAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="bunifuLabel3.BaseStylesheet" xml:space="preserve">
+    <value>#bunifu-label { padding: 0px; font-family: 'Segoe UI'; font-size: 9pt; width: 100%; height: 100%; font-style: normal; font-weight: normal; text-decoration: none; color: rgb(0, 0, 0); text-align: left; }</value>
   </data>
 </root>

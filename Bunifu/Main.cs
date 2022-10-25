@@ -32,5 +32,39 @@ namespace Bunifu
             bnfPageMain.PageIndex = 2;
         }
 
+        private void btnMeCho_Click(object sender, EventArgs e)
+        {
+            //disable this button
+            btnMeCho.Enabled = false;
+            //enable other button 
+            btnTienLuong.Enabled = true;
+            btnTienThuong.Enabled = true;
+        }
+
+        private void btnTienLuong_Click(object sender, EventArgs e)
+        {
+            //disable this button
+            btnTienLuong.Enabled = false;
+            //enable other button
+            btnMeCho.Enabled = true;
+            btnTienThuong.Enabled = true;
+            //focus on content
+            txtContentIncome.Focus();
+            //mouse over on content
+            btnTienLuong.AllowAnimations = false;
+            
+            
+
+
+        }
+
+        private void btnTienThuong_Click(object sender, EventArgs e)
+        {
+            //disable this button
+            btnTienThuong.Enabled = false;
+            //enable other button
+            btnMeCho.Enabled = true;
+            btnTienLuong.Enabled = true;
+        }
     }
 }
