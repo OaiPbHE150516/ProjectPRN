@@ -37,6 +37,7 @@ namespace MoneyWife
         private void Main_Load(object sender, EventArgs e)
         {
             loadMoney();
+            loadHistoryTransaction();
             //load bnfDatePicker with current date
             bnfDatePickerIncome.Value = DateTime.Now;
             bnfDatePickerExpense.Value = DateTime.Now;
@@ -71,6 +72,58 @@ namespace MoneyWife
             }
 
 
+        }
+
+        private void loadHistoryTransaction()
+        {
+            //clear data in dgvHistoryTransaction
+            dgvHistoryTransaction.DataBindings.Clear();
+            //load history transaction to datagridview from database using LINQ context
+            var sql = from t in context.Transactions
+                      join ty in context.Types on t.MoneyType equals ty.Id
+                      where t.UserId == user.Id
+                      orderby t.DateUse descending
+                      select new
+                      {
+                          t.DateUse,
+                          t.MoneyNum,
+                          t.MoneyContent,
+                          t.CashOrBank,
+                          ty.Name,
+                          ty.Category
+                      };
+            //format DateUse sang dạng dd/MM/yyyy
+            DataTable dt = new DataTable();
+            //cột số thứ tự
+            //dt.Columns.Add("STT", typeof(int));
+            dt.Columns.Add("DateUse");
+            dt.Columns.Add("MoneyNum");
+            dt.Columns.Add("MoneyContent");
+            dt.Columns.Add("CashOrBank");
+            dt.Columns.Add("Name");
+            dt.Columns.Add("Category");
+            foreach (var item in sql)
+            {
+                dt.Rows.Add(
+                    //dt.Rows.Count + 1,
+                    //format date thao dạng như là Thứ năm, 26 thg 10
+                    item.DateUse.ToString("dddd, dd MMM", CultureInfo.CreateSpecificCulture("vi-VN")),
+                    //dạng tiền tệ VND 12.000đ
+                    item.MoneyNum.ToString("C", CultureInfo.CreateSpecificCulture("vi-VN")),
+                    item.MoneyContent,
+                    //item.CashOrBank == "cash" ? "Tiền mặt" : "Tài khoản"
+                    item.CashOrBank == "cash" ? "Tiền mặt" : "Tài khoản",
+                    item.Name,
+                    item.Category);
+            }
+            //tạo một table view 
+            DataView dv = new DataView(dt);
+            // gộp những row có cùng ngày tháng năm lại thành 1 row
+            
+            dv.RowFilter = "DateUse = DateUse";
+            //đổ dữ liệu vào datagridview
+            dgvHistoryTransaction.DataSource = dv;
+            //dgvHistoryTransaction.DataSource = dt;
         }
 
         private void offBtn()
@@ -138,6 +191,7 @@ namespace MoneyWife
             //enable other buttons
             btnIncome.Enabled = true;
             btnExpense.Enabled = true;
+            btnHistory.Enabled = true;
         }
 
         private void btnIncome_Click(object sender, EventArgs e)
@@ -148,6 +202,7 @@ namespace MoneyWife
             //enable other buttons
             btnReport.Enabled = true;
             btnExpense.Enabled = true;
+            btnHistory.Enabled = true;
         }
 
         private void btnExpense_Click(object sender, EventArgs e)
@@ -156,6 +211,18 @@ namespace MoneyWife
             //disable this button
             btnExpense.Enabled = false;
             //enable other buttons
+            btnReport.Enabled = true;
+            btnIncome.Enabled = true;
+            btnHistory.Enabled = true;
+        }
+
+        private void btnHistory_Click(object sender, EventArgs e)
+        {
+            bnfPageMain.PageIndex = 3;
+            //disable this button
+            btnHistory.Enabled = false;
+            //enable other buttons
+            btnExpense.Enabled = true;
             btnReport.Enabled = true;
             btnIncome.Enabled = true;
         }
@@ -181,6 +248,28 @@ namespace MoneyWife
             btnTotal.ButtonText = convertVND((money.Cash + money.Bank).ToString());
         }
 
+        private void clearBtnTxt(string v)
+        {
+            if (v == "income")
+            {
+                txtMoneyIncome.Text = "";
+                txtMoneyIncome.BorderColorIdle = System.Drawing.Color.Silver;
+                lblRequiredMoneyIncome.Visible = false;
+                lblRequiredTypeIncome.Visible = false;
+            }
+            else if (v == "expense")
+            {
+                txtMoneyExpense.Text = "";
+                txtMoneyExpense.BorderColorIdle = System.Drawing.Color.Silver;
+                btnCashExpense.IdleBorderColor = System.Drawing.Color.Silver;
+                btnBankExpense.IdleBorderColor = System.Drawing.Color.Silver;
+                lblRequiredMoneyExpense.Visible = false;
+                lblRequiredTypeExpense.Visible = false;
+                inVisibleBtnSoExpense();
+                resetBtnExpense();
+            }
+
+        }
 
         //page income////////////////page income//////////////////////page income////////////////////////////////
         private void chooseBtnIncome(BunifuButton2 btnDisable)
@@ -527,7 +616,7 @@ namespace MoneyWife
         }
         //end page income
 
-        
+
         //page expense/////////////////////////////////page expense////////////////////////page expense///////////////////page expense
         private void resetBtnExpense()
         {
@@ -604,6 +693,7 @@ namespace MoneyWife
         private void txtMoneyExpense_TextChange(object sender, EventArgs e)
         {
             changeBtnExpense();
+            checkExpenseMoney();
         }
 
         private void txtMoneyExpense_KeyPress(object sender, KeyPressEventArgs e)
@@ -713,6 +803,64 @@ namespace MoneyWife
 
         }
 
+        private void checkExpenseMoney()
+        {
+            //check số tiền nhập vào có hợp lệ không
+            if (txtMoneyExpense.Text == "" || txtMoneyExpense.Text == null)
+            {
+                txtMoneyExpense.BorderColorIdle = System.Drawing.Color.IndianRed;
+                lblRequiredMoneyExpense.Text = "Vui lòng nhập số tiền!";
+                lblRequiredMoneyExpense.Visible = true;
+                return;
+            }
+            Decimal expenseMoneyDecimal = Convert.ToDecimal(convertDecimal(txtMoneyExpense.Text));
+            //check số tiền nhập vào có lớn hơn 1000 không
+            if (expenseMoneyDecimal <= 1000)
+            {
+
+                txtMoneyExpense.BorderColorIdle = System.Drawing.Color.IndianRed;
+                lblRequiredMoneyExpense.Text = "Số tiền phải lớn hơn 1000!";
+                lblRequiredMoneyExpense.Visible = true;
+                return;
+            }
+            else
+            {
+                txtMoneyExpense.BorderColorIdle = System.Drawing.Color.ForestGreen;
+                lblRequiredMoneyExpense.Text = "";
+                lblRequiredMoneyExpense.Visible = false;
+            }
+            string cashOrBank = btnCashExpense.Enabled == false ? "cash" : "bank";
+            Money? money = context.Money.FirstOrDefault(m => m.UserId == user.Id);
+            // nếu expenseMoneyDecimal > money.Cash hoặc expenseMoneyDecimal > money.Bank thì yêu cầu người dùng nhập lại
+            if (cashOrBank == "cash")
+            {
+                if (expenseMoneyDecimal > money.Cash)
+                {
+                    txtMoneyExpense.BorderColorIdle = System.Drawing.Color.IndianRed;
+                    lblRequiredMoneyExpense.Text = "Số tiền chi không được lớn hơn số tiền trong ví!";
+                    lblRequiredMoneyExpense.Visible = true;
+                    return;
+                }
+            }
+            else
+            {
+                if (expenseMoneyDecimal > money.Bank)
+                {
+                    txtMoneyExpense.BorderColorIdle = System.Drawing.Color.IndianRed;
+                    lblRequiredMoneyExpense.Text = "Số tiền chi không được lớn hơn số tiền trong tài khoản ngân hàng!";
+                    lblRequiredMoneyExpense.Visible = true;
+                    return;
+                }
+            }
+
+            // nếu số tiền nhập vào hợp lệ thì cho phép người dùng tiếp tục
+            txtMoneyExpense.BorderColorIdle = System.Drawing.Color.ForestGreen;
+            lblRequiredMoneyExpense.Text = "";
+            lblRequiredMoneyExpense.Visible = false;
+            inVisibleBtnSoExpense();
+            resetBtnExpense();
+        }
+
         private void btnAddExpense_Click(object sender, EventArgs e)
         {
             //get date of bnfDatePickerExpense dưới dạng datetime
@@ -722,22 +870,9 @@ namespace MoneyWife
             {
                 date = DateTime.Now;
             }
+            checkExpenseMoney();
             //get expense money từ txtMoneyExpense
-            string expense = txtMoneyExpense.Text;
-            Decimal expenseMoneyDecimal = 0;
-            //nếu expense null hoặc empty thì yêu cầu người dùng nhập lại 
-            if (expense == null || expense == "")
-            {
-                txtMoneyExpense.BorderColorIdle = System.Drawing.Color.IndianRed;
-                txtMoneyExpense.PlaceholderForeColor = System.Drawing.Color.IndianRed;
-                txtMoneyExpense.PlaceholderText = "Vui lòng nhập số tiền chi";
-                return;
-            }
-            else
-            {
-                txtMoneyExpense.BorderColorIdle = System.Drawing.Color.ForestGreen;
-                expenseMoneyDecimal = Convert.ToDecimal(convertDecimal(expense));
-            }
+            Decimal expenseMoneyDecimal = Convert.ToDecimal(convertDecimal(txtMoneyExpense.Text));
             string cashOrBank = "";
             //nếu một trong hai button cash hoặc bank chưa được chọn thì yêu cầu người dùng chọn
             if (btnCashExpense.Enabled == true && btnBankExpense.Enabled == true)
@@ -792,28 +927,6 @@ namespace MoneyWife
                 MessageBox.Show("Loại chi tiêu không tồn tại!");
                 return;
             }
-            Money? money = context.Money.FirstOrDefault(m => m.UserId == user.Id);
-            // nếu expenseMoneyDecimal > money.Cash hoặc expenseMoneyDecimal > money.Bank thì yêu cầu người dùng nhập lại
-            if (cashOrBank == "cash")
-            {
-                if (expenseMoneyDecimal > money.Cash)
-                {
-                    txtMoneyExpense.BorderColorIdle = System.Drawing.Color.IndianRed;
-                    lblRequiredMoneyExpense.Text = "Số tiền chi không được lớn hơn số tiền trong ví!";
-                    lblRequiredMoneyExpense.Visible = true;
-                    return;
-                }
-            }
-            else
-            {
-                if (expenseMoneyDecimal > money.Bank)
-                {
-                    txtMoneyExpense.BorderColorIdle = System.Drawing.Color.IndianRed;
-                    lblRequiredMoneyExpense.Text = "Số tiền chi không được lớn hơn số tiền trong tài khoản ngân hàng!";
-                    lblRequiredMoneyExpense.Visible = true;
-                    return;
-                }
-            }
 
             //Tạo một đối tượng Transaction
             Transaction transaction = new Transaction();
@@ -831,14 +944,14 @@ namespace MoneyWife
                 context.SaveChanges();
                 MessageBox.Show("Thêm khoản chi thành công!");
                 minusMoney(cashOrBank, expenseMoneyDecimal);
+                clearBtnTxt("expense");
             }
             else
             {
                 MessageBox.Show("Thêm khoản chi thất bại!");
             }
-
-
         }
+
 
         private void minusMoney(string cashOrBank, decimal expenseMoneyDecimal)
         {
@@ -867,30 +980,7 @@ namespace MoneyWife
 
         private void txtMoneyExpense_Leave(object sender, EventArgs e)
         {
-            Decimal expenseMoneyDecimal = Convert.ToDecimal(convertDecimal(txtMoneyExpense.Text));
-            string cashOrBank = btnCashExpense.Enabled == false ? "cash" : "bank";
-            Money? money = context.Money.FirstOrDefault(m => m.UserId == user.Id);
-            // nếu expenseMoneyDecimal > money.Cash hoặc expenseMoneyDecimal > money.Bank thì yêu cầu người dùng nhập lại
-            if (cashOrBank == "cash")
-            {
-                if (expenseMoneyDecimal > money.Cash)
-                {
-                    txtMoneyExpense.BorderColorIdle = System.Drawing.Color.IndianRed;
-                    lblRequiredMoneyExpense.Text = "Số tiền chi không được lớn hơn số tiền trong ví!";
-                    lblRequiredMoneyExpense.Visible = true;
-                    return;
-                }
-            }
-            else
-            {
-                if (expenseMoneyDecimal > money.Bank)
-                {
-                    txtMoneyExpense.BorderColorIdle = System.Drawing.Color.IndianRed;
-                    lblRequiredMoneyExpense.Text = "Số tiền chi không được lớn hơn số tiền trong tài khoản ngân hàng!";
-                    lblRequiredMoneyExpense.Visible = true;
-                    return;
-                }
-            }
+            checkExpenseMoney();
         }
 
         private void btnCashExpense_Click(object sender, EventArgs e)
@@ -902,6 +992,7 @@ namespace MoneyWife
             {
                 btnBankExpense.Enabled = true;
             }
+            checkExpenseMoney();
         }
 
         private void btnBankExpense_Click(object sender, EventArgs e)
@@ -913,8 +1004,14 @@ namespace MoneyWife
             {
                 btnCashExpense.Enabled = true;
             }
+            checkExpenseMoney();
         }
 
+
         //end page expense
+
+        //page report/////////page report/////////page report/////////page report/////////page report/////////page report/////////
+
     }
+
 }

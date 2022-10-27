@@ -258,6 +258,12 @@
     <Compile Include="TestButton.Designer.cs">
       <DependentUpon>TestButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="TestGridViewcs.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestGridViewcs.Designer.cs">
+      <DependentUpon>TestGridViewcs.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

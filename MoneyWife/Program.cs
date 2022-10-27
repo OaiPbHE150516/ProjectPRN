@@ -13,7 +13,7 @@ namespace MoneyWife
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            //Application.Run(new Main());
+            //Application.Run(new Login());
             User? user = new User();
             MoneyWifeContext context = new MoneyWifeContext();
             user = context.Users.FirstOrDefault(u => u.Username == "oaiba" && u.Password == "123");
