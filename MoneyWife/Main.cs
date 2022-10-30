@@ -76,6 +76,8 @@ namespace MoneyWife
 
         private void loadHistoryTransaction()
         {
+            //clear selected row
+            dgvHistoryTransaction.ClearSelection();
             //clear data in dgvHistoryTransaction
             dgvHistoryTransaction.DataBindings.Clear();
             //load history transaction to datagridview from database using LINQ context
@@ -96,36 +98,118 @@ namespace MoneyWife
             DataTable dt = new DataTable();
             //cột số thứ tự
             //dt.Columns.Add("STT", typeof(int));
-            dt.Columns.Add("DateUse");
-            dt.Columns.Add("MoneyNum");
-            dt.Columns.Add("MoneyContent");
-            dt.Columns.Add("CashOrBank");
-            dt.Columns.Add("Name");
+            dt.Columns.Add("Ngày");
+            dt.Columns.Add("Số tiền");
+            dt.Columns.Add("Note");
+            dt.Columns.Add("Phân loại");
             dt.Columns.Add("Category");
+            dt.Columns.Add("Ví");
+            //first row để trống cho dễ nhìn
+            dt.Rows.Add("", "", "", "", "", "");
+            //ẩn cột category đi 
             foreach (var item in sql)
             {
                 dt.Rows.Add(
                     //dt.Rows.Count + 1,
                     //format date thao dạng như là Thứ năm, 26 thg 10
                     item.DateUse.ToString("dddd, dd MMM", CultureInfo.CreateSpecificCulture("vi-VN")),
-                    //dạng tiền tệ VND 12.000đ
-                    item.MoneyNum.ToString("C", CultureInfo.CreateSpecificCulture("vi-VN")),
+                    //dạng tiền tệ VND, ví dụ: 12.000đ,
+                    //nếu category = income thì dấu + trước số tiền và có màu xanh lá cây
+                    //nếu category = expense thì dấu - trước số tiền và có màu đỏ
+                    item.Category == "income" ? "+ " + item.MoneyNum.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")) : "- " + item.MoneyNum.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")),
                     item.MoneyContent,
-                    //item.CashOrBank == "cash" ? "Tiền mặt" : "Tài khoản"
-                    item.CashOrBank == "cash" ? "Tiền mặt" : "Tài khoản",
                     item.Name,
+                    item.CashOrBank == "cash" ? "Tiền mặt" : "Tài khoản",
+                    //nếu category = income thì có màu xanh lá cây
+                    //nếu category = expense thì có màu đỏ
                     item.Category);
             }
-            //tạo một table view 
-            DataView dv = new DataView(dt);
-            // gộp những row có cùng ngày tháng năm lại thành 1 row
-            
-            dv.RowFilter = "DateUse = DateUse";
-            //đổ dữ liệu vào datagridview
-            dgvHistoryTransaction.DataSource = dv;
-            //dgvHistoryTransaction.DataSource = dt;
+            dgvHistoryTransaction.DataSource = dt;
+            //clear selected row
+            dgvHistoryTransaction.ClearSelection();
+            dgvHistoryTransaction.Rows[0].Height = 0;
+            dgvHistoryTransaction.Columns[0].Width = 150;
+            dgvHistoryTransaction.Columns[1].Width = 120;
+            dgvHistoryTransaction.Columns[3].Width = 100;
+            dgvHistoryTransaction.Columns[4].Width = 1;
+            dgvHistoryTransaction.Columns[5].Width = 1;
         }
 
+        // so sánh 2 ngày có cùng ngày tháng năm không
+        private bool isSameDay(int column, int row)
+        {
+            DataGridViewCell cell1 = dgvHistoryTransaction.Rows[row].Cells[column];
+            DataGridViewCell cell2 = dgvHistoryTransaction.Rows[row - 1].Cells[column];
+            //if one of them null, return false
+            if (cell1.Value == null || cell2.Value == null)
+            {
+                return false;
+            }
+            return cell1.Value.ToString() == cell2.Value.ToString();
+        }
+        private void dgvHistoryTransaction_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if(e.RowIndex != -1)
+            {
+                e.AdvancedBorderStyle.Bottom = DataGridViewAdvancedCellBorderStyle.None;
+                if (e.RowIndex < 1 || e.ColumnIndex < 0)
+                    return;
+                if (isSameDay(e.ColumnIndex, e.RowIndex))
+                {
+                    e.AdvancedBorderStyle.Top = DataGridViewAdvancedCellBorderStyle.None;
+                }
+                else
+                {
+                    e.AdvancedBorderStyle.Top = dgvHistoryTransaction.AdvancedCellBorderStyle.Top;
+                }
+                //nếu cột thứ 2 (cột số tiền) có giá trị là income thì màu xanh lá cây
+                //nếu cột thứ 2 (cột số tiền) có giá trị là expense thì màu đỏ
+                if (e.ColumnIndex == 1)
+                {
+                    if (dgvHistoryTransaction.Rows[e.RowIndex].Cells[5].Value.ToString() == "income")
+                    {
+                        e.CellStyle.ForeColor = Color.Green;
+                    }
+                    else
+                    {
+                        e.CellStyle.ForeColor = Color.Red;
+                    }
+                }
+            }
+            if (e.ColumnIndex == 1 || e.ColumnIndex == 4 || e.ColumnIndex == 5)
+            {
+                e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            }
+            if (e.ColumnIndex == 2)
+            {
+                e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            }
+        }
+
+        private void dgvHistoryTransaction_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex < 1 || e.ColumnIndex < 0)
+                return;
+            if (isSameDay(e.ColumnIndex, e.RowIndex))
+            {
+                if (e.ColumnIndex == 0)
+                {
+                    e.Value = "";
+                    e.FormattingApplied = true;
+                }
+            }
+        }
+
+        private void dgvHistoryTransaction_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            dgvHistoryTransaction.Rows[0].Height = 0;
+            dgvHistoryTransaction.Columns[0].Width = 150;
+            dgvHistoryTransaction.Columns[1].Width = 120;
+            dgvHistoryTransaction.Columns[3].Width = 100;
+            dgvHistoryTransaction.Columns[4].Width = 1;
+            dgvHistoryTransaction.Columns[5].Width = 1;
+
+        }
         private void offBtn()
         {
             btn3soIncome.Visible = false;
@@ -218,6 +302,7 @@ namespace MoneyWife
 
         private void btnHistory_Click(object sender, EventArgs e)
         {
+            loadHistoryTransaction();
             bnfPageMain.PageIndex = 3;
             //disable this button
             btnHistory.Enabled = false;

@@ -16,7 +16,7 @@ namespace Bunifu
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new TestGridViewcs());
+            Application.Run(new Form2());
         }
     }
 }
