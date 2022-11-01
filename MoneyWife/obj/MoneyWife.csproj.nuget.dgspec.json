@@ -45,13 +45,17 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "dependencies": {
+            "Bunifu.Licensing": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
             "Bunifu.UI.WinForms": {
               "target": "Package",
               "version": "[6.0.1, )"
             },
-            "Bunifu.Utils": {
+            "Guna.Charts.WinForms": {
               "target": "Package",
-              "version": "[1.0.6, )"
+              "version": "[1.0.4, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

@@ -63,18 +63,6 @@
           "Microsoft.WindowsDesktop.App.WindowsForms"
         ]
       },
-      "Bunifu.Utils/1.0.6": {
-        "type": "package",
-        "dependencies": {
-          "Bunifu.UI.WinForms": "5.0.1"
-        },
-        "compile": {
-          "lib/net/Bunifu.Utils.dll": {}
-        },
-        "runtime": {
-          "lib/net/Bunifu.Utils.dll": {}
-        }
-      },
       "Costura.Fody/3.3.3": {
         "type": "package",
         "dependencies": {
@@ -88,6 +76,15 @@
         "type": "package",
         "build": {
           "build/_._": {}
+        }
+      },
+      "Guna.Charts.WinForms/1.0.4": {
+        "type": "package",
+        "compile": {
+          "lib/net40/Guna.Charts.WinForms.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Guna.Charts.WinForms.dll": {}
         }
       },
       "Humanizer.Core/2.8.26": {
@@ -2043,19 +2040,6 @@
         "lib/net6.0-windows7.0/Bunifu.UI.WinForms.1.5.3.xml"
       ]
     },
-    "Bunifu.Utils/1.0.6": {
-      "sha512": "9sad8WB8h1GdJd0ZD1CBn+i8D156FbtNvDiLciEopU48nB74xwvhJbvK3On/kEjNMS0HZ/961owDYCW3NC3sAA==",
-      "type": "package",
-      "path": "bunifu.utils/1.0.6",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "bunifu.utils.1.0.6.nupkg.sha512",
-        "bunifu.utils.nuspec",
-        "lib/Assets/icon.png",
-        "lib/net/Bunifu.Utils.dll"
-      ]
-    },
     "Costura.Fody/3.3.3": {
       "sha512": "5eajNeZl5+Ov8MrCNBgdBXsbdEp6BkYecq3zak8U0C1jNAdEBqjyAqNFKaEsMlTOLVFrdF/X9+y9OzsfeuqRkg==",
       "type": "package",
@@ -2110,6 +2094,20 @@
         "netstandardtask/Mono.Cecil.Rocks.pdb",
         "netstandardtask/Mono.Cecil.dll",
         "netstandardtask/Mono.Cecil.pdb"
+      ]
+    },
+    "Guna.Charts.WinForms/1.0.4": {
+      "sha512": "78Lny2uFqhMROmRJ+4N53f3662ydRRVlRrED0EpucbQROEGMzNJkC34WWXcJPm8dz6+zONr4NkUUPJWO58o04A==",
+      "type": "package",
+      "path": "guna.charts.winforms/1.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.txt",
+        "guna.charts.winforms.1.0.4.nupkg.sha512",
+        "guna.charts.winforms.nuspec",
+        "icon.png",
+        "lib/net40/Guna.Charts.WinForms.dll"
       ]
     },
     "Humanizer.Core/2.8.26": {
@@ -4908,8 +4906,9 @@
   },
   "projectFileDependencyGroups": {
     "net6.0-windows7.0": [
+      "Bunifu.Licensing >= 5.0.0",
       "Bunifu.UI.WinForms >= 6.0.1",
-      "Bunifu.Utils >= 1.0.6",
+      "Guna.Charts.WinForms >= 1.0.4",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.1",
       "Microsoft.EntityFrameworkCore.SqlServer >= 6.0.1",
       "Microsoft.Extensions.Configuration.Json >= 6.0.0"
@@ -4960,13 +4959,17 @@
       "net6.0-windows7.0": {
         "targetAlias": "net6.0-windows",
         "dependencies": {
+          "Bunifu.Licensing": {
+            "target": "Package",
+            "version": "[5.0.0, )"
+          },
           "Bunifu.UI.WinForms": {
             "target": "Package",
             "version": "[6.0.1, )"
           },
-          "Bunifu.Utils": {
+          "Guna.Charts.WinForms": {
             "target": "Package",
-            "version": "[1.0.6, )"
+            "version": "[1.0.4, )"
           },
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -5021,8 +5024,8 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'Bunifu.Utils 1.0.6' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
-      "libraryId": "Bunifu.Utils",
+      "message": "Package 'Guna.Charts.WinForms 1.0.4' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net6.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "Guna.Charts.WinForms",
       "targetGraphs": [
         "net6.0-windows7.0"
       ]

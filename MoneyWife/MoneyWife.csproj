@@ -9,8 +9,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bunifu.Licensing" Version="5.0.0" />
     <PackageReference Include="Bunifu.UI.WinForms" Version="6.0.1" />
-    <PackageReference Include="Bunifu.Utils" Version="1.0.6" />
+    <PackageReference Include="Guna.Charts.WinForms" Version="1.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

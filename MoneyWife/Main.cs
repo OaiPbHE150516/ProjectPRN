@@ -120,8 +120,6 @@ namespace MoneyWife
                     item.MoneyContent,
                     item.Name,
                     item.CashOrBank == "cash" ? "Tiền mặt" : "Tài khoản",
-                    //nếu category = income thì có màu xanh lá cây
-                    //nếu category = expense thì có màu đỏ
                     item.Category);
             }
             dgvHistoryTransaction.DataSource = dt;

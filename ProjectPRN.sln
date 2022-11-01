@@ -5,7 +5,9 @@ VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bunifu", "Bunifu\Bunifu.csproj", "{C8D7037E-2F53-4BC5-9B73-4E9F28533C02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoneyWife", "MoneyWife\MoneyWife.csproj", "{9FE69267-22E4-4C59-8D33-951EDFE55D1B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoneyWife", "MoneyWife\MoneyWife.csproj", "{9FE69267-22E4-4C59-8D33-951EDFE55D1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{1F6BC762-CD43-47D8-88D0-DB65F9018228}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9FE69267-22E4-4C59-8D33-951EDFE55D1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9FE69267-22E4-4C59-8D33-951EDFE55D1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9FE69267-22E4-4C59-8D33-951EDFE55D1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F6BC762-CD43-47D8-88D0-DB65F9018228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F6BC762-CD43-47D8-88D0-DB65F9018228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F6BC762-CD43-47D8-88D0-DB65F9018228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F6BC762-CD43-47D8-88D0-DB65F9018228}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

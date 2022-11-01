@@ -66,5 +66,10 @@ namespace Bunifu
             btnMeCho.Enabled = true;
             btnTienLuong.Enabled = true;
         }
+
+        private void gunaChart1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
