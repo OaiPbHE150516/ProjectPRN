@@ -1,4 +1,5 @@
 ﻿using Bunifu.UI.WinForms.BunifuButton;
+using Guna.Charts.WinForms;
 using MoneyWife.Models;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,8 @@ using System.Data;
 using System.Drawing;
 using System.Globalization;
 using System.Linq;
+using System.Reflection;
+using System.Speech.Synthesis.TtsEngine;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -36,8 +39,12 @@ namespace MoneyWife
 
         private void Main_Load(object sender, EventArgs e)
         {
+            btnDropdownTime.SelectedIndex = 0;
+            btnDropdownExInTotal.SelectedIndex = 1;
+            //disable btnDropdownTime.SelectedIndex = 5
+            //btnDropdownTime.Items[5].En
             loadMoney();
-            loadHistoryTransaction();
+            //loadHistoryTransaction();
             //load bnfDatePicker with current date
             bnfDatePickerIncome.Value = DateTime.Now;
             bnfDatePickerExpense.Value = DateTime.Now;
@@ -72,6 +79,400 @@ namespace MoneyWife
             }
 
 
+        }
+
+        private void loadChart()
+        {
+
+        }
+
+
+        DateTime now = DateTime.Now;
+        DateTime begin;
+        DateTime end;
+
+        private void btnDropdownTime_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            getDataToDrawChart();
+        }
+
+        private void getDataToDrawChart()
+        {
+            //sử dụng switch case để xử lý các trường hợp của btnDropdownExInTotal, btnDropdownTime
+            String typeInEx = "";
+            switch (btnDropdownExInTotal.SelectedIndex)
+            {
+                case 0: //Income
+                    typeInEx = "Income";
+                    break;
+                case 1:
+                    typeInEx = "Expense";
+                    break;
+            }
+            switch (btnDropdownTime.SelectedIndex)
+            {
+                case 0: // ngày tháng năm hôm nay
+                    begin = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0);
+                    end = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59);
+                    break;
+                case 1: // Tuần này
+                    //ngày tháng năm của ngày đầu tiên của tuần hiện tại
+                    begin = new DateTime(now.Year, now.Month, now.Day, 0, 0, 0).AddDays(-(int)now.DayOfWeek);
+                    //ngày tháng năm của ngày cuối cùng của tuần hiện tại
+                    end = new DateTime(now.Year, now.Month, now.Day, 23, 59, 59).AddDays(6 - (int)now.DayOfWeek);
+                    break;
+                case 2: // Tháng này
+                    //ngày tháng năm của ngày đầu tiên của tháng hiện tại
+                    begin = new DateTime(now.Year, now.Month, 1, 0, 0, 0);
+                    //ngày tháng năm của ngày cuối cùng của tháng hiện tại
+                    end = new DateTime(now.Year, now.Month, DateTime.DaysInMonth(now.Year, now.Month), 23, 59, 59);
+                    break;
+                case 3: // Năm nay
+                    //ngày tháng năm của ngày đầu tiên của năm hiện tại
+                    begin = new DateTime(now.Year, 1, 1, 0, 0, 0);
+                    //ngày tháng năm của ngày cuối cùng của năm hiện tại
+                    end = new DateTime(now.Year, 12, 31, 23, 59, 59);
+                    break;
+                case 4: // Tất cả
+                    //get first record of user in table Transaction which have type = typeInEx
+                    begin = (from t in context.Transactions
+                             where t.UserId == user.Id && t.MoneyTypeNavigation.Category == typeInEx
+                             orderby t.DateUse ascending
+                             select t.DateUse).FirstOrDefault();
+                    //get last record of user in table Transaction which have type = typeInEx
+                    end = (from t in context.Transactions
+                           where t.UserId == user.Id && t.MoneyTypeNavigation.Category == typeInEx
+                           orderby t.DateUse descending
+                           select t.DateUse).FirstOrDefault();
+                    break;
+                default:
+                    break;
+            }
+            fixBugUndefined();
+            bnfDatePickerChartFrom.Value = begin;
+            bnfDatePickerChartTo.Value = end;
+            countPercent(begin, end);
+        }
+
+        private void btnDropdownExInTotal_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            getDataToDrawChart();
+            ////nếu selectedIndex = 2 (tất cả) thì đổi items của btnDropdownTime thành items: "Ngày", "Tháng"
+            //if (btnDropdownExInTotal.SelectedIndex == 2)
+            //{
+            //    //remove all items of btnDropdownTime
+            //    btnDropdownTime.Items.Clear();
+            //    String[] strings = { "Ngày", "Tháng" };
+            //    foreach (var item in strings)
+            //    {
+            //        btnDropdownTime.Items.Add(item);
+            //    }
+            //}
+            //else
+            //{
+            //    //remove all items of btnDropdownTime
+            //    btnDropdownTime.Items.Clear();
+            //    String[] strings = { "Hôm nay", "Tuần này", "Tháng này", "Năm nay", "Tất cả" };
+            //    foreach (var item in strings)
+            //    {
+            //        btnDropdownTime.Items.Add(item);
+            //    }
+            //}
+        }
+        private void fixBugUndefined()
+        {
+            gunaChart1.Datasets.Clear();
+            gunaChart1.Datasets.Add(new Guna.Charts.WinForms.GunaDoughnutDataset());
+            Dictionary<string, double> dataPercent = new Dictionary<string, double>();
+            switch (btnDropdownExInTotal.SelectedIndex)
+            {
+                case 0: //Income
+                    dataPercent.Add("Mẹ cho", 0);
+                    dataPercent.Add("Tiền lương", 0);
+                    dataPercent.Add("Tiền thưởng", 0);
+                    dataPercent.Add("Đầu tư", 0);
+                    dataPercent.Add("Lợi nhuận", 0);
+                    dataPercent.Add("Thu lãi", 0);
+                    dataPercent.Add("Cho thuê", 0);
+                    dataPercent.Add("Stock", 0);
+                    break;
+                case 1: //Expense
+                    dataPercent.Add("Ăn uống", 0);
+                    dataPercent.Add("Quần áo", 0);
+                    dataPercent.Add("Đi lại", 0);
+                    dataPercent.Add("Internet", 0);
+                    dataPercent.Add("Tiền nhà", 0);
+                    dataPercent.Add("Giáo dục", 0);
+                    dataPercent.Add("Y tế", 0);
+                    dataPercent.Add("Hiếu hỉ", 0);
+                    dataPercent.Add("Giải trí", 0);
+                    dataPercent.Add("Khác", 0);
+                    break;
+            }
+            Chart.Donut.DrawDonut(gunaChart1, "Biểu đồ:", dataPercent);
+        }
+
+        private void bnfDatePickerChartTo_CloseUp(object sender, EventArgs e)
+        {
+            begin = bnfDatePickerChartFrom.Value;
+            end = bnfDatePickerChartTo.Value;
+            //MessageBox.Show(bnfDatePickerChartTo.Value.ToString());
+            fixBugUndefined();
+            btnDropdownTime.SelectedIndex = 5;
+            countPercent(begin, end);
+        }
+
+        private void bnfDatePickerChartFrom_CloseUp(object sender, EventArgs e)
+        {
+            begin = bnfDatePickerChartFrom.Value;
+            end = bnfDatePickerChartTo.Value;
+            //MessageBox.Show(bnfDatePickerChartFrom.Value.ToString());
+            fixBugUndefined();
+            btnDropdownTime.SelectedIndex = 5;
+            countPercent(begin, end);
+        }
+
+        private void countPercent(DateTime begin, DateTime end)
+        {
+            gunaChart1.Datasets.Clear();
+            String typeInEx = "";
+            String chartTitle = "";
+            switch (btnDropdownExInTotal.SelectedIndex)
+            {
+                case 0: //Income
+                    typeInEx = "Income";
+
+                    //nếu ngày tháng năm của begin = ngày tháng năm của end thì chỉ hiển thị ngày tháng năm của begin
+                    if (begin.Date == end.Date && begin.Month == end.Month && begin.Year == end.Year)
+                    {
+                        chartTitle = "Biểu đồ thu nhập ngày " + begin.ToString("dddd, dd MMM, yyy", CultureInfo.CreateSpecificCulture("vi-VN"));
+                    }
+                    else
+                    {
+                        chartTitle = "Biểu đồ thu nhập trong khoảng thời gian "
+                       + begin.ToString("dddd, dd MMM, yyy", CultureInfo.CreateSpecificCulture("vi-VN"))
+                       + " - " + end.ToString("dddd, dd MMM, yyy", CultureInfo.CreateSpecificCulture("vi-VN"));
+                    }
+                    break;
+                case 1: //Expense
+                    typeInEx = "Expense";
+                    //nếu ngày tháng năm của begin = ngày tháng năm của end thì chỉ hiển thị ngày tháng năm của begin
+                    if (begin.Date == end.Date && begin.Month == end.Month && begin.Year == end.Year)
+                    {
+                        chartTitle = "Biểu đồ chi tiêu ngày " + begin.ToString("dddd, dd MMM, yyy", CultureInfo.CreateSpecificCulture("vi-VN"));
+                    }
+                    else
+                    {
+                        chartTitle = "Biểu đồ chi tiêu trong khoảng thời gian "
+                        + begin.ToString("dddd, dd MMM, yyy", CultureInfo.CreateSpecificCulture("vi-VN"))
+                        + " - " + end.ToString("dddd, dd MMM, yyy", CultureInfo.CreateSpecificCulture("vi-VN"));
+                    }
+                    break;
+                case 2: //Total 
+                    drawChartTotal(begin, end);
+
+                    return;
+            }
+            //lấy ra các loại chi tiêu trong transaction của user, tên và tổng tiền của chúng trong một khoảng thời gian, sắp xếp theo tổng tiền giảm dần
+            Dictionary<string, int> dataTransaction = new Dictionary<string, int>();
+            var sqlExpense = from t in context.Transactions
+                             where t.UserId == user.Id && t.MoneyTypeNavigation.Category == typeInEx && t.DateUse > begin && t.DateUse < end
+                             group t by t.MoneyTypeNavigation.Name into g
+                             select new
+                             {
+                                 Name = g.Key,
+                                 Total = g.Sum(t => t.MoneyNum)
+                             };
+            //gán name và total vào dictionary
+            foreach (var item in sqlExpense)
+            {
+                dataTransaction.Add(item.Name, (int)item.Total);
+            }
+            // sort dataExpense Dictionary by value
+            dataTransaction = dataTransaction.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+            loadDgvReport(dataTransaction, typeInEx);
+            // tính % của từng loại chi tiêu với tổng tiền chi tiêu, làm tròn đến 2 chữ số thập phân
+            Dictionary<string, double> dataPercent = new Dictionary<string, double>();
+            double total = dataTransaction.Sum(x => x.Value);
+            foreach (var item in dataTransaction)
+            {
+                dataPercent.Add(item.Key, Math.Round((item.Value / total) * 100, 0));
+            }
+            //nếu dictionary mà rỗng thì hiển thị thông báo
+            if (dataPercent.Count == 0)
+            {
+                //MessageBox.Show("Không có dữ liệu trong khoảng thời gian này", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //nếu begin và end có chung ngày tháng năm thì hiển thị thông báo
+                if (begin.Year == end.Year && begin.Month == end.Month && begin.Day == end.Day)
+                {
+                    lblNotificationChartData.Text = "Không có dữ liệu trong ngày <br>"
+                        + " hôm nay <strong><i>" + begin.ToString("dddd, dd MMM, yyy", CultureInfo.CreateSpecificCulture("vi-VN")) + "</i></strong>";
+                }
+                else
+                {
+                    lblNotificationChartData.Text = "Không có dữ liệu trong khoảng thời gian <br>"
+                        + " từ: <strong><i>" + begin.ToString("dddd, dd MMM, yyy", CultureInfo.CreateSpecificCulture("vi-VN")) + "</i></strong> <br>"
+                        + " đến: <strong><i>" + end.ToString("dddd, dd MMM, yyy", CultureInfo.CreateSpecificCulture("vi-VN")) + "</i></strong>";
+                }
+                lblNotificationChartData.Visible = true;
+                fixBugUndefined();
+            }
+            else
+            {
+                fixBugUndefined();
+                lblNotificationChartData.Text = "";
+                lblNotificationChartData.Visible = false;
+                //vẽ biểu đồ
+                Chart.Donut.DrawDonut(gunaChart1, chartTitle, dataPercent);
+            }
+            if (btnDropdownExInTotal.SelectedIndex == 2)
+            {
+                //Chart.StackedBar.DrawStackedBar(gunaChart1, chartTitle);
+            }
+        }
+
+        private void drawChartTotal(DateTime begin, DateTime end)
+        {
+            Dictionary<string, decimal> dataTotalExpense = new Dictionary<string, decimal>();
+            //lấy ra tổng chi tiêu sau mỗi tháng của user, sắp xếp theo thứ tự thời gian từ tháng trước đến tháng sau
+            var queryTotalExpense = from t in context.Transactions
+                                    where t.UserId == user.Id && t.MoneyTypeNavigation.Category == "Expense" && t.DateUse > begin && t.DateUse < end
+                                    group t by new { t.DateUse.Year, t.DateUse.Month } into g
+                                    select new
+                                    {
+                                        Year = g.Key.Year,
+                                        Month = g.Key.Month,
+                                        Total = g.Sum(t => t.MoneyNum)
+                                    };
+            // gán dữ liệu vào biểu đồ
+            foreach (var item in queryTotalExpense)
+            {
+                dataTotalExpense.Add(item.Month + "/" + item.Year, item.Total);
+            }
+
+            Dictionary<string, decimal> dataTotalIncome = new Dictionary<string, decimal>();
+            //lấy ra tổng thu nhập sau mỗi tháng của user, sắp xếp theo thứ tự thời gian từ tháng trước đến tháng sau
+            var queryTotalIncome = from t in context.Transactions
+                                   where t.UserId == user.Id && t.MoneyTypeNavigation.Category == "Income" && t.DateUse > begin && t.DateUse < end
+                                   group t by new { t.DateUse.Year, t.DateUse.Month } into g
+                                   select new
+                                   {
+                                       Year = g.Key.Year,
+                                       Month = g.Key.Month,
+                                       Total = g.Sum(t => t.MoneyNum)
+                                   };
+            // gán dữ liệu vào biểu đồ
+            foreach (var item in queryTotalIncome)
+            {
+                dataTotalIncome.Add(item.Month + "/" + item.Year, item.Total);
+            }
+
+            //một dictionary chứa dữ liệu là hiệu của thu nhập - chi tiêu
+            Dictionary<string, decimal> dataTotal = new Dictionary<string, decimal>();
+            foreach (var item in dataTotalIncome)
+            {
+                dataTotal.Add(item.Key, item.Value);
+            }
+            foreach (var item in dataTotalExpense)
+            {
+                if (dataTotal.ContainsKey(item.Key))
+                {
+                    dataTotal[item.Key] -= item.Value;
+                }
+                else
+                {
+                    dataTotal.Add(item.Key, -item.Value);
+                }
+            }
+
+
+
+            ////nếu dictionary mà rỗng thì hiển thị thông báo
+            //if (dataTotalExpense.Count == 0 && dataTotalIncome.Count == 0)
+            //{
+            //    //MessageBox.Show("Không có dữ liệu trong khoảng thời gian này", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    //nếu begin và end có chung ngày tháng năm thì hiển thị thông báo
+            //    if (begin.Year == end.Year && begin.Month == end.Month && begin.Day == end.Day)
+            //    {
+            //        lblNotificationChartData.Text = "Không có dữ liệu trong ngày <br>"
+            //            + " hôm nay <strong><i>" + begin.ToString("dddd, dd MMM, yyy", CultureInfo.CreateSpecificCulture("vi-VN")) + "</i></strong>";
+            //    }
+            //    else
+            //    {
+            //        lblNotificationChartData.Text = "Không có dữ liệu trong khoảng thời gian <br>"
+            //            + " từ: <strong><i>" + begin.ToString("dddd, dd MMM, yyy", CultureInfo.CreateSpecificCulture("vi-VN")) + "</i></strong> <br>"
+            //            + " đến: <strong><i>" + end.ToString("dddd, dd MMM, yyy", CultureInfo.CreateSpecificCulture("vi-VN")) + "</i></strong>";
+            //    }
+            //    lblNotificationChartData.Visible = true;
+            //    fixBugUndefined();
+            //}
+            //else
+            //{
+            //    fixBugUndefined();
+            //    lblNotificationChartData.Text = "";
+            //    lblNotificationChartData.Visible = false;
+            //    //vẽ biểu đồ
+            //    Chart.StackedBar.DrawStackedBar(gunaChart1, "Biểu đồ chi tiêu theo tháng", dataTotalExpense, dataTotalIncome);
+            //}
+            Chart.StackedBar.DrawStackedBar(gunaChart1, "Biểu đồ chi tiêu theo tháng", dataTotalIncome, dataTotalExpense, dataTotal);
+        }
+
+        private void loadDgvReport(Dictionary<string, int> dataTransaction, String inEx)
+        {
+            //load dataTransaction vào bnfDgvReport
+            DataTable dataTable = new DataTable();
+            dataTable.Columns.Add("Nội dung");
+            dataTable.Columns.Add("Số tiền");
+            dataTable.Rows.Add("", "");
+            foreach (var item in dataTransaction)
+            {
+                dataTable.Rows.Add(item.Key,
+                    inEx == "Income" ? "+ " + item.Value.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")) : "- " + item.Value.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")));
+            }
+            dataTable.Rows.Add("Tổng tiền", dataTransaction.Sum(x => x.Value).ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")));
+            bnfDgvReport.DataSource = dataTable;
+
+        }
+
+        private void bnfDgvReport_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            //row đầu tiên height = 0
+            bnfDgvReport.Rows[0].Height = 0;
+            //chỉnh height của bnfDgvReport theo số dòng
+            bnfDgvReport.Height = bnfDgvReport.Rows.Count * bnfDgvReport.Rows[1].Height;
+
+
+        }
+
+        private void bnfDgvReport_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            //style middleright to all cell
+            e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            if (e.RowIndex != -1)
+            {
+                if (e.RowIndex < 1 || e.ColumnIndex < 0)
+                {
+                    return;
+                }
+                if (e.ColumnIndex == 1 && e.RowIndex != bnfDgvReport.Rows.Count - 1)
+                {
+                    //nếu btnDropdownInExTotal SelectedIndex = 0 thì là Income, ngược lại là Expense
+                    if (btnDropdownExInTotal.SelectedIndex == 0)
+                    {
+                        e.CellStyle.ForeColor = Color.Green;
+                    }
+                    else if (btnDropdownExInTotal.SelectedIndex == 1)
+                    {
+                        e.CellStyle.ForeColor = Color.Red;
+                    }
+                }
+
+                //nếu row ở hàng cuối cùng thì style bold
+                if (e.RowIndex == bnfDgvReport.Rows.Count - 1)
+                {
+                    e.CellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+                }
+            }
         }
 
         private void loadHistoryTransaction()
@@ -111,8 +512,9 @@ namespace MoneyWife
             {
                 dt.Rows.Add(
                     //dt.Rows.Count + 1,
-                    //format date thao dạng như là Thứ năm, 26 thg 10
-                    item.DateUse.ToString("dddd, dd MMM", CultureInfo.CreateSpecificCulture("vi-VN")),
+                    //format date thao dạng như là Thứ năm, 26 thg 10, 2022
+
+                    item.DateUse.ToString("dddd, dd MMM, yyy", CultureInfo.CreateSpecificCulture("vi-VN")),
                     //dạng tiền tệ VND, ví dụ: 12.000đ,
                     //nếu category = income thì dấu + trước số tiền và có màu xanh lá cây
                     //nếu category = expense thì dấu - trước số tiền và có màu đỏ
@@ -124,13 +526,6 @@ namespace MoneyWife
             }
             dgvHistoryTransaction.DataSource = dt;
             //clear selected row
-            dgvHistoryTransaction.ClearSelection();
-            dgvHistoryTransaction.Rows[0].Height = 0;
-            dgvHistoryTransaction.Columns[0].Width = 150;
-            dgvHistoryTransaction.Columns[1].Width = 120;
-            dgvHistoryTransaction.Columns[3].Width = 100;
-            dgvHistoryTransaction.Columns[4].Width = 1;
-            dgvHistoryTransaction.Columns[5].Width = 1;
         }
 
         // so sánh 2 ngày có cùng ngày tháng năm không
@@ -147,7 +542,7 @@ namespace MoneyWife
         }
         private void dgvHistoryTransaction_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
-            if(e.RowIndex != -1)
+            if (e.RowIndex != -1)
             {
                 e.AdvancedBorderStyle.Bottom = DataGridViewAdvancedCellBorderStyle.None;
                 if (e.RowIndex < 1 || e.ColumnIndex < 0)
@@ -200,12 +595,18 @@ namespace MoneyWife
 
         private void dgvHistoryTransaction_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
-            dgvHistoryTransaction.Rows[0].Height = 0;
-            dgvHistoryTransaction.Columns[0].Width = 150;
-            dgvHistoryTransaction.Columns[1].Width = 120;
-            dgvHistoryTransaction.Columns[3].Width = 100;
-            dgvHistoryTransaction.Columns[4].Width = 1;
-            dgvHistoryTransaction.Columns[5].Width = 1;
+            try
+            {
+                dgvHistoryTransaction.Rows[0].Height = 0;
+                dgvHistoryTransaction.Columns[0].Width = 180;
+                dgvHistoryTransaction.Columns[1].Width = 120;
+                dgvHistoryTransaction.Columns[3].Width = 100;
+                dgvHistoryTransaction.Columns[4].Width = 1;
+                dgvHistoryTransaction.Columns[5].Width = 1;
+            }
+            catch (Exception)
+            {
+            }
 
         }
         private void offBtn()
@@ -242,7 +643,7 @@ namespace MoneyWife
                 return "0";
             }
         }
-        private string convertVND(string v)
+        private string convertVND(string? v)
         {
             // trả về string dưới dạng tiền tệ VNĐ với dấu chấm
 
@@ -267,6 +668,7 @@ namespace MoneyWife
         //nav button
         private void btnReport_Click(object sender, EventArgs e)
         {
+            loadChart();
             bnfPageMain.PageIndex = 0;
             //disable this button
             btnReport.Enabled = false;
@@ -1089,6 +1491,10 @@ namespace MoneyWife
             }
             checkExpenseMoney();
         }
+
+
+
+
 
 
         //end page expense

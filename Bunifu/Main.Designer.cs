@@ -29,7 +29,21 @@
         private void InitializeComponent()
         {
             Utilities.BunifuPages.BunifuAnimatorNS.Animation animation1 = new Utilities.BunifuPages.BunifuAnimatorNS.Animation();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            Guna.Charts.WinForms.ChartFont chartFont1 = new Guna.Charts.WinForms.ChartFont();
+            Guna.Charts.WinForms.ChartFont chartFont2 = new Guna.Charts.WinForms.ChartFont();
+            Guna.Charts.WinForms.ChartFont chartFont3 = new Guna.Charts.WinForms.ChartFont();
+            Guna.Charts.WinForms.ChartFont chartFont4 = new Guna.Charts.WinForms.ChartFont();
+            Guna.Charts.WinForms.Grid grid1 = new Guna.Charts.WinForms.Grid();
+            Guna.Charts.WinForms.Tick tick1 = new Guna.Charts.WinForms.Tick();
+            Guna.Charts.WinForms.ChartFont chartFont5 = new Guna.Charts.WinForms.ChartFont();
+            Guna.Charts.WinForms.Grid grid2 = new Guna.Charts.WinForms.Grid();
+            Guna.Charts.WinForms.Tick tick2 = new Guna.Charts.WinForms.Tick();
+            Guna.Charts.WinForms.ChartFont chartFont6 = new Guna.Charts.WinForms.ChartFont();
+            Guna.Charts.WinForms.Grid grid3 = new Guna.Charts.WinForms.Grid();
+            Guna.Charts.WinForms.PointLabel pointLabel1 = new Guna.Charts.WinForms.PointLabel();
+            Guna.Charts.WinForms.ChartFont chartFont7 = new Guna.Charts.WinForms.ChartFont();
+            Guna.Charts.WinForms.Tick tick3 = new Guna.Charts.WinForms.Tick();
+            Guna.Charts.WinForms.ChartFont chartFont8 = new Guna.Charts.WinForms.ChartFont();
             Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges borderEdges1 = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges();
             Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges borderEdges2 = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges();
             Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges borderEdges3 = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges();
@@ -87,28 +101,14 @@
             Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges borderEdges39 = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges();
             Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges borderEdges40 = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges();
             Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges borderEdges41 = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges();
-            Guna.Charts.WinForms.ChartFont chartFont1 = new Guna.Charts.WinForms.ChartFont();
-            Guna.Charts.WinForms.ChartFont chartFont2 = new Guna.Charts.WinForms.ChartFont();
-            Guna.Charts.WinForms.ChartFont chartFont3 = new Guna.Charts.WinForms.ChartFont();
-            Guna.Charts.WinForms.ChartFont chartFont4 = new Guna.Charts.WinForms.ChartFont();
-            Guna.Charts.WinForms.Grid grid1 = new Guna.Charts.WinForms.Grid();
-            Guna.Charts.WinForms.Tick tick1 = new Guna.Charts.WinForms.Tick();
-            Guna.Charts.WinForms.ChartFont chartFont5 = new Guna.Charts.WinForms.ChartFont();
-            Guna.Charts.WinForms.Grid grid2 = new Guna.Charts.WinForms.Grid();
-            Guna.Charts.WinForms.Tick tick2 = new Guna.Charts.WinForms.Tick();
-            Guna.Charts.WinForms.ChartFont chartFont6 = new Guna.Charts.WinForms.ChartFont();
-            Guna.Charts.WinForms.Grid grid3 = new Guna.Charts.WinForms.Grid();
-            Guna.Charts.WinForms.PointLabel pointLabel1 = new Guna.Charts.WinForms.PointLabel();
-            Guna.Charts.WinForms.ChartFont chartFont7 = new Guna.Charts.WinForms.ChartFont();
-            Guna.Charts.WinForms.Tick tick3 = new Guna.Charts.WinForms.Tick();
-            Guna.Charts.WinForms.ChartFont chartFont8 = new Guna.Charts.WinForms.ChartFont();
-            Guna.Charts.WinForms.LPoint lPoint1 = new Guna.Charts.WinForms.LPoint();
-            Guna.Charts.WinForms.LPoint lPoint2 = new Guna.Charts.WinForms.LPoint();
-            Guna.Charts.WinForms.LPoint lPoint3 = new Guna.Charts.WinForms.LPoint();
-            Guna.Charts.WinForms.LPoint lPoint4 = new Guna.Charts.WinForms.LPoint();
-            Guna.Charts.WinForms.LPoint lPoint5 = new Guna.Charts.WinForms.LPoint();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.bnfPageMain = new Bunifu.UI.WinForms.BunifuPages();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.bunifuLabel1 = new Bunifu.UI.WinForms.BunifuLabel();
+            this.bunifuDatePicker1 = new Bunifu.UI.WinForms.BunifuDatePicker();
+            this.bndDropdownRangeTime = new Bunifu.UI.WinForms.BunifuDropdown();
+            this.bunifuPanel1 = new Bunifu.UI.WinForms.BunifuPanel();
+            this.gunaChart1 = new Guna.Charts.WinForms.GunaChart();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.lblRequiredType = new Bunifu.UI.WinForms.BunifuLabel();
             this.btnAddTypeIncome = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2();
@@ -169,10 +169,12 @@
             this.btnCash = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2();
             this.btnBank = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2();
             this.btnTotal = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2();
-            this.gunaChart1 = new Guna.Charts.WinForms.GunaChart();
             this.gunaPieDataset1 = new Guna.Charts.WinForms.GunaPieDataset();
+            this.bunifuDatePicker2 = new Bunifu.UI.WinForms.BunifuDatePicker();
+            this.bunifuLabel3 = new Bunifu.UI.WinForms.BunifuLabel();
             this.bnfPageMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.bunifuPanel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.SuspendLayout();
@@ -216,7 +218,12 @@
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.gunaChart1);
+            this.tabPage1.Controls.Add(this.bunifuLabel3);
+            this.tabPage1.Controls.Add(this.bunifuDatePicker2);
+            this.tabPage1.Controls.Add(this.bunifuLabel1);
+            this.tabPage1.Controls.Add(this.bunifuDatePicker1);
+            this.tabPage1.Controls.Add(this.bndDropdownRangeTime);
+            this.tabPage1.Controls.Add(this.bunifuPanel1);
             this.tabPage1.Location = new System.Drawing.Point(4, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -224,6 +231,144 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // bunifuLabel1
+            // 
+            this.bunifuLabel1.AllowParentOverrides = false;
+            this.bunifuLabel1.AutoEllipsis = false;
+            this.bunifuLabel1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.bunifuLabel1.CursorType = System.Windows.Forms.Cursors.Default;
+            this.bunifuLabel1.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bunifuLabel1.Location = new System.Drawing.Point(165, 6);
+            this.bunifuLabel1.Name = "bunifuLabel1";
+            this.bunifuLabel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.bunifuLabel1.Size = new System.Drawing.Size(30, 31);
+            this.bunifuLabel1.TabIndex = 9;
+            this.bunifuLabel1.Text = "Từ:";
+            this.bunifuLabel1.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            this.bunifuLabel1.TextFormat = Bunifu.UI.WinForms.BunifuLabel.TextFormattingOptions.Default;
+            // 
+            // bunifuDatePicker1
+            // 
+            this.bunifuDatePicker1.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuDatePicker1.BorderColor = System.Drawing.Color.Silver;
+            this.bunifuDatePicker1.BorderRadius = 10;
+            this.bunifuDatePicker1.Color = System.Drawing.Color.Silver;
+            this.bunifuDatePicker1.DateBorderThickness = Bunifu.UI.WinForms.BunifuDatePicker.BorderThickness.Thin;
+            this.bunifuDatePicker1.DateTextAlign = Bunifu.UI.WinForms.BunifuDatePicker.TextAlign.Left;
+            this.bunifuDatePicker1.DisabledColor = System.Drawing.Color.Gray;
+            this.bunifuDatePicker1.DisplayWeekNumbers = false;
+            this.bunifuDatePicker1.DPHeight = 0;
+            this.bunifuDatePicker1.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
+            this.bunifuDatePicker1.FillDatePicker = false;
+            this.bunifuDatePicker1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bunifuDatePicker1.ForeColor = System.Drawing.Color.Black;
+            this.bunifuDatePicker1.Icon = ((System.Drawing.Image)(resources.GetObject("bunifuDatePicker1.Icon")));
+            this.bunifuDatePicker1.IconColor = System.Drawing.Color.DarkGray;
+            this.bunifuDatePicker1.IconLocation = Bunifu.UI.WinForms.BunifuDatePicker.Indicator.Right;
+            this.bunifuDatePicker1.LeftTextMargin = 5;
+            this.bunifuDatePicker1.Location = new System.Drawing.Point(202, 6);
+            this.bunifuDatePicker1.MinimumSize = new System.Drawing.Size(4, 32);
+            this.bunifuDatePicker1.Name = "bunifuDatePicker1";
+            this.bunifuDatePicker1.Size = new System.Drawing.Size(250, 32);
+            this.bunifuDatePicker1.TabIndex = 8;
+            this.bunifuDatePicker1.Value = new System.DateTime(2022, 10, 24, 0, 10, 0, 0);
+            // 
+            // bndDropdownRangeTime
+            // 
+            this.bndDropdownRangeTime.BackColor = System.Drawing.Color.Transparent;
+            this.bndDropdownRangeTime.BackgroundColor = System.Drawing.Color.White;
+            this.bndDropdownRangeTime.BorderColor = System.Drawing.Color.Silver;
+            this.bndDropdownRangeTime.BorderRadius = 1;
+            this.bndDropdownRangeTime.Color = System.Drawing.Color.Silver;
+            this.bndDropdownRangeTime.Direction = Bunifu.UI.WinForms.BunifuDropdown.Directions.Down;
+            this.bndDropdownRangeTime.DisabledBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.bndDropdownRangeTime.DisabledBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(204)))), ((int)(((byte)(204)))), ((int)(((byte)(204)))));
+            this.bndDropdownRangeTime.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.bndDropdownRangeTime.DisabledForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.bndDropdownRangeTime.DisabledIndicatorColor = System.Drawing.Color.DarkGray;
+            this.bndDropdownRangeTime.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.bndDropdownRangeTime.DropdownBorderThickness = Bunifu.UI.WinForms.BunifuDropdown.BorderThickness.Thin;
+            this.bndDropdownRangeTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.bndDropdownRangeTime.DropDownTextAlign = Bunifu.UI.WinForms.BunifuDropdown.TextAlign.Left;
+            this.bndDropdownRangeTime.FillDropDown = true;
+            this.bndDropdownRangeTime.FillIndicator = false;
+            this.bndDropdownRangeTime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.bndDropdownRangeTime.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.bndDropdownRangeTime.ForeColor = System.Drawing.Color.Black;
+            this.bndDropdownRangeTime.FormattingEnabled = true;
+            this.bndDropdownRangeTime.Icon = null;
+            this.bndDropdownRangeTime.IndicatorAlignment = Bunifu.UI.WinForms.BunifuDropdown.Indicator.Right;
+            this.bndDropdownRangeTime.IndicatorColor = System.Drawing.Color.DarkGray;
+            this.bndDropdownRangeTime.IndicatorLocation = Bunifu.UI.WinForms.BunifuDropdown.Indicator.Right;
+            this.bndDropdownRangeTime.IndicatorThickness = 2;
+            this.bndDropdownRangeTime.IsDropdownOpened = false;
+            this.bndDropdownRangeTime.ItemBackColor = System.Drawing.Color.White;
+            this.bndDropdownRangeTime.ItemBorderColor = System.Drawing.Color.White;
+            this.bndDropdownRangeTime.ItemForeColor = System.Drawing.Color.Black;
+            this.bndDropdownRangeTime.ItemHeight = 26;
+            this.bndDropdownRangeTime.ItemHighLightColor = System.Drawing.Color.DodgerBlue;
+            this.bndDropdownRangeTime.ItemHighLightForeColor = System.Drawing.Color.White;
+            this.bndDropdownRangeTime.ItemTopMargin = 3;
+            this.bndDropdownRangeTime.Location = new System.Drawing.Point(6, 6);
+            this.bndDropdownRangeTime.Name = "bndDropdownRangeTime";
+            this.bndDropdownRangeTime.Size = new System.Drawing.Size(153, 32);
+            this.bndDropdownRangeTime.TabIndex = 3;
+            this.bndDropdownRangeTime.Text = null;
+            this.bndDropdownRangeTime.TextAlignment = Bunifu.UI.WinForms.BunifuDropdown.TextAlign.Left;
+            this.bndDropdownRangeTime.TextLeftMargin = 5;
+            // 
+            // bunifuPanel1
+            // 
+            this.bunifuPanel1.BackgroundColor = System.Drawing.Color.Transparent;
+            this.bunifuPanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("bunifuPanel1.BackgroundImage")));
+            this.bunifuPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.bunifuPanel1.BorderColor = System.Drawing.Color.Transparent;
+            this.bunifuPanel1.BorderRadius = 3;
+            this.bunifuPanel1.BorderThickness = 1;
+            this.bunifuPanel1.Controls.Add(this.gunaChart1);
+            this.bunifuPanel1.Location = new System.Drawing.Point(6, 44);
+            this.bunifuPanel1.Name = "bunifuPanel1";
+            this.bunifuPanel1.ShowBorders = true;
+            this.bunifuPanel1.Size = new System.Drawing.Size(516, 413);
+            this.bunifuPanel1.TabIndex = 2;
+            // 
+            // gunaChart1
+            // 
+            this.gunaChart1.Animation.Easing = Guna.Charts.WinForms.Easing.EaseInOutQuad;
+            this.gunaChart1.BackColor = System.Drawing.Color.White;
+            chartFont1.FontName = "Arial";
+            this.gunaChart1.Legend.LabelFont = chartFont1;
+            this.gunaChart1.Location = new System.Drawing.Point(27, 58);
+            this.gunaChart1.Name = "gunaChart1";
+            this.gunaChart1.Size = new System.Drawing.Size(419, 260);
+            this.gunaChart1.TabIndex = 1;
+            chartFont2.FontName = "Arial";
+            chartFont2.Size = 12;
+            chartFont2.Style = Guna.Charts.WinForms.ChartFontStyle.Bold;
+            this.gunaChart1.Title.Font = chartFont2;
+            chartFont3.FontName = "Arial";
+            this.gunaChart1.Tooltips.BodyFont = chartFont3;
+            chartFont4.FontName = "Arial";
+            chartFont4.Size = 9;
+            chartFont4.Style = Guna.Charts.WinForms.ChartFontStyle.Bold;
+            this.gunaChart1.Tooltips.TitleFont = chartFont4;
+            this.gunaChart1.XAxes.GridLines = grid1;
+            chartFont5.FontName = "Arial";
+            tick1.Font = chartFont5;
+            this.gunaChart1.XAxes.Ticks = tick1;
+            this.gunaChart1.YAxes.GridLines = grid2;
+            chartFont6.FontName = "Arial";
+            tick2.Font = chartFont6;
+            this.gunaChart1.YAxes.Ticks = tick2;
+            this.gunaChart1.ZAxes.GridLines = grid3;
+            chartFont7.FontName = "Arial";
+            pointLabel1.Font = chartFont7;
+            this.gunaChart1.ZAxes.PointLabels = pointLabel1;
+            chartFont8.FontName = "Arial";
+            tick3.Font = chartFont8;
+            this.gunaChart1.ZAxes.Ticks = tick3;
+            this.gunaChart1.Load += new System.EventHandler(this.gunaChart1_Load);
             // 
             // tabPage2
             // 
@@ -4472,60 +4617,51 @@
             this.btnTotal.TextPadding = new System.Windows.Forms.Padding(0);
             this.btnTotal.UseDefaultRadiusAndThickness = true;
             // 
-            // gunaChart1
-            // 
-            this.gunaChart1.Animation.Easing = Guna.Charts.WinForms.Easing.EaseInQuad;
-            this.gunaChart1.BackColor = System.Drawing.Color.White;
-            this.gunaChart1.Datasets.AddRange(new Guna.Charts.Interfaces.IGunaDataset[] {
-            this.gunaPieDataset1});
-            chartFont1.FontName = "Arial";
-            this.gunaChart1.Legend.LabelFont = chartFont1;
-            this.gunaChart1.Location = new System.Drawing.Point(201, 90);
-            this.gunaChart1.Name = "gunaChart1";
-            this.gunaChart1.Size = new System.Drawing.Size(419, 260);
-            this.gunaChart1.TabIndex = 1;
-            chartFont2.FontName = "Arial";
-            chartFont2.Size = 12;
-            chartFont2.Style = Guna.Charts.WinForms.ChartFontStyle.Bold;
-            this.gunaChart1.Title.Font = chartFont2;
-            chartFont3.FontName = "Arial";
-            this.gunaChart1.Tooltips.BodyFont = chartFont3;
-            chartFont4.FontName = "Arial";
-            chartFont4.Size = 9;
-            chartFont4.Style = Guna.Charts.WinForms.ChartFontStyle.Bold;
-            this.gunaChart1.Tooltips.TitleFont = chartFont4;
-            this.gunaChart1.XAxes.GridLines = grid1;
-            chartFont5.FontName = "Arial";
-            tick1.Font = chartFont5;
-            this.gunaChart1.XAxes.Ticks = tick1;
-            this.gunaChart1.YAxes.GridLines = grid2;
-            chartFont6.FontName = "Arial";
-            tick2.Font = chartFont6;
-            this.gunaChart1.YAxes.Ticks = tick2;
-            this.gunaChart1.ZAxes.GridLines = grid3;
-            chartFont7.FontName = "Arial";
-            pointLabel1.Font = chartFont7;
-            this.gunaChart1.ZAxes.PointLabels = pointLabel1;
-            chartFont8.FontName = "Arial";
-            tick3.Font = chartFont8;
-            this.gunaChart1.ZAxes.Ticks = tick3;
-            this.gunaChart1.Load += new System.EventHandler(this.gunaChart1_Load);
-            // 
             // gunaPieDataset1
             // 
-            lPoint1.Y = 10D;
-            lPoint2.Y = 20D;
-            lPoint3.Y = 30D;
-            lPoint4.Y = 50D;
-            lPoint5.Y = 0D;
-            this.gunaPieDataset1.DataPoints.AddRange(new Guna.Charts.WinForms.LPoint[] {
-            lPoint1,
-            lPoint2,
-            lPoint3,
-            lPoint4,
-            lPoint5});
             this.gunaPieDataset1.Label = "Pie1";
-            this.gunaPieDataset1.TargetChart = this.gunaChart1;
+            // 
+            // bunifuDatePicker2
+            // 
+            this.bunifuDatePicker2.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuDatePicker2.BorderColor = System.Drawing.Color.Silver;
+            this.bunifuDatePicker2.BorderRadius = 10;
+            this.bunifuDatePicker2.Color = System.Drawing.Color.Silver;
+            this.bunifuDatePicker2.DateBorderThickness = Bunifu.UI.WinForms.BunifuDatePicker.BorderThickness.Thin;
+            this.bunifuDatePicker2.DateTextAlign = Bunifu.UI.WinForms.BunifuDatePicker.TextAlign.Left;
+            this.bunifuDatePicker2.DisabledColor = System.Drawing.Color.Gray;
+            this.bunifuDatePicker2.DisplayWeekNumbers = false;
+            this.bunifuDatePicker2.DPHeight = 0;
+            this.bunifuDatePicker2.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
+            this.bunifuDatePicker2.FillDatePicker = false;
+            this.bunifuDatePicker2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bunifuDatePicker2.ForeColor = System.Drawing.Color.Black;
+            this.bunifuDatePicker2.Icon = ((System.Drawing.Image)(resources.GetObject("bunifuDatePicker2.Icon")));
+            this.bunifuDatePicker2.IconColor = System.Drawing.Color.DarkGray;
+            this.bunifuDatePicker2.IconLocation = Bunifu.UI.WinForms.BunifuDatePicker.Indicator.Right;
+            this.bunifuDatePicker2.LeftTextMargin = 5;
+            this.bunifuDatePicker2.Location = new System.Drawing.Point(514, 6);
+            this.bunifuDatePicker2.MinimumSize = new System.Drawing.Size(4, 32);
+            this.bunifuDatePicker2.Name = "bunifuDatePicker2";
+            this.bunifuDatePicker2.Size = new System.Drawing.Size(250, 32);
+            this.bunifuDatePicker2.TabIndex = 10;
+            this.bunifuDatePicker2.Value = new System.DateTime(2022, 10, 24, 0, 10, 0, 0);
+            // 
+            // bunifuLabel3
+            // 
+            this.bunifuLabel3.AllowParentOverrides = false;
+            this.bunifuLabel3.AutoEllipsis = false;
+            this.bunifuLabel3.Cursor = System.Windows.Forms.Cursors.Default;
+            this.bunifuLabel3.CursorType = System.Windows.Forms.Cursors.Default;
+            this.bunifuLabel3.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bunifuLabel3.Location = new System.Drawing.Point(465, 7);
+            this.bunifuLabel3.Name = "bunifuLabel3";
+            this.bunifuLabel3.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.bunifuLabel3.Size = new System.Drawing.Size(43, 31);
+            this.bunifuLabel3.TabIndex = 11;
+            this.bunifuLabel3.Text = "Đến:";
+            this.bunifuLabel3.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            this.bunifuLabel3.TextFormat = Bunifu.UI.WinForms.BunifuLabel.TextFormattingOptions.Default;
             // 
             // Main
             // 
@@ -4546,6 +4682,8 @@
             this.Text = "Main";
             this.bnfPageMain.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.bunifuPanel1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
@@ -4620,5 +4758,11 @@
         private System.Windows.Forms.TabPage tabPage4;
         private Guna.Charts.WinForms.GunaChart gunaChart1;
         private Guna.Charts.WinForms.GunaPieDataset gunaPieDataset1;
+        private UI.WinForms.BunifuLabel bunifuLabel1;
+        private UI.WinForms.BunifuDatePicker bunifuDatePicker1;
+        private UI.WinForms.BunifuDropdown bndDropdownRangeTime;
+        private UI.WinForms.BunifuPanel bunifuPanel1;
+        private UI.WinForms.BunifuLabel bunifuLabel3;
+        private UI.WinForms.BunifuDatePicker bunifuDatePicker2;
     }
 }
