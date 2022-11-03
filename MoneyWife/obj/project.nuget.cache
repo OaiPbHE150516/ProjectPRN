@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "X045VVX2T2dkZvTLEO5gRwAO9tAzyDw1soZ9jj5B/H4JO2Cj2JuFynxXjHuoZcpxAC50NjfRVL+zhUiAxL8n4A==",
+  "dgSpecHash": "WsJRbWPKPlUc+wk72IUJozAsVFf7QBiZHsephBBC+AOAYJnBtzwvoQv41CP5Rr/jhAhBDeXSIyqe2oH+Ucs+GQ==",
   "success": true,
   "projectFilePath": "E:\\Sem6\\PRN211\\ProjectPRN\\MoneyWife\\MoneyWife.csproj",
   "expectedPackageFiles": [
@@ -60,6 +60,9 @@
     "C:\\Users\\Phamb\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Phamb\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\Phamb\\.nuget\\packages\\runtime.win-x86.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
+    "C:\\Users\\Phamb\\.nuget\\packages\\syncfusion.licensing\\20.3.0.52\\syncfusion.licensing.20.3.0.52.nupkg.sha512",
+    "C:\\Users\\Phamb\\.nuget\\packages\\syncfusion.xamarin.core\\20.3.0.52\\syncfusion.xamarin.core.20.3.0.52.nupkg.sha512",
+    "C:\\Users\\Phamb\\.nuget\\packages\\syncfusion.xamarin.sfchart\\20.3.0.52\\syncfusion.xamarin.sfchart.20.3.0.52.nupkg.sha512",
     "C:\\Users\\Phamb\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
     "C:\\Users\\Phamb\\.nuget\\packages\\system.collections.immutable\\6.0.0\\system.collections.immutable.6.0.0.nupkg.sha512",
     "C:\\Users\\Phamb\\.nuget\\packages\\system.componentmodel.composition\\6.0.0\\system.componentmodel.composition.6.0.0.nupkg.sha512",
@@ -106,7 +109,8 @@
     "C:\\Users\\Phamb\\.nuget\\packages\\system.text.json\\6.0.0\\system.text.json.6.0.0.nupkg.sha512",
     "C:\\Users\\Phamb\\.nuget\\packages\\system.threading.accesscontrol\\6.0.0\\system.threading.accesscontrol.6.0.0.nupkg.sha512",
     "C:\\Users\\Phamb\\.nuget\\packages\\system.web.services.description\\4.9.0\\system.web.services.description.4.9.0.nupkg.sha512",
-    "C:\\Users\\Phamb\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
+    "C:\\Users\\Phamb\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Phamb\\.nuget\\packages\\xamarin.forms\\5.0.0.2012\\xamarin.forms.5.0.0.2012.nupkg.sha512"
   ],
   "logs": [
     {

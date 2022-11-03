@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             Utilities.BunifuPages.BunifuAnimatorNS.Animation animation1 = new Utilities.BunifuPages.BunifuAnimatorNS.Animation();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             Guna.Charts.WinForms.ChartFont chartFont1 = new Guna.Charts.WinForms.ChartFont();
             Guna.Charts.WinForms.ChartFont chartFont2 = new Guna.Charts.WinForms.ChartFont();
             Guna.Charts.WinForms.ChartFont chartFont3 = new Guna.Charts.WinForms.ChartFont();
@@ -101,9 +102,13 @@
             Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges borderEdges39 = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges();
             Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges borderEdges40 = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges();
             Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges borderEdges41 = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2.BorderEdges();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.bnfPageMain = new Bunifu.UI.WinForms.BunifuPages();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.bunifuLabel3 = new Bunifu.UI.WinForms.BunifuLabel();
+            this.bunifuDatePicker2 = new Bunifu.UI.WinForms.BunifuDatePicker();
             this.bunifuLabel1 = new Bunifu.UI.WinForms.BunifuLabel();
             this.bunifuDatePicker1 = new Bunifu.UI.WinForms.BunifuDatePicker();
             this.bndDropdownRangeTime = new Bunifu.UI.WinForms.BunifuDropdown();
@@ -170,13 +175,15 @@
             this.btnBank = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2();
             this.btnTotal = new Bunifu.UI.WinForms.BunifuButton.BunifuButton2();
             this.gunaPieDataset1 = new Guna.Charts.WinForms.GunaPieDataset();
-            this.bunifuDatePicker2 = new Bunifu.UI.WinForms.BunifuDatePicker();
-            this.bunifuLabel3 = new Bunifu.UI.WinForms.BunifuLabel();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.chartOai = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.bnfPageMain.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.bunifuPanel1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartOai)).BeginInit();
             this.SuspendLayout();
             // 
             // bnfPageMain
@@ -187,14 +194,15 @@
             this.bnfPageMain.Controls.Add(this.tabPage2);
             this.bnfPageMain.Controls.Add(this.tabPage3);
             this.bnfPageMain.Controls.Add(this.tabPage4);
+            this.bnfPageMain.Controls.Add(this.tabPage5);
             this.bnfPageMain.Cursor = System.Windows.Forms.Cursors.Default;
             this.bnfPageMain.Location = new System.Drawing.Point(12, 124);
             this.bnfPageMain.Multiline = true;
             this.bnfPageMain.Name = "bnfPageMain";
-            this.bnfPageMain.Page = this.tabPage1;
-            this.bnfPageMain.PageIndex = 0;
-            this.bnfPageMain.PageName = "tabPage1";
-            this.bnfPageMain.PageTitle = "tabPage1";
+            this.bnfPageMain.Page = this.tabPage5;
+            this.bnfPageMain.PageIndex = 4;
+            this.bnfPageMain.PageName = "tabPage5";
+            this.bnfPageMain.PageTitle = "tabPage5";
             this.bnfPageMain.SelectedIndex = 0;
             this.bnfPageMain.Size = new System.Drawing.Size(1021, 489);
             this.bnfPageMain.TabIndex = 0;
@@ -231,6 +239,48 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // bunifuLabel3
+            // 
+            this.bunifuLabel3.AllowParentOverrides = false;
+            this.bunifuLabel3.AutoEllipsis = false;
+            this.bunifuLabel3.Cursor = System.Windows.Forms.Cursors.Default;
+            this.bunifuLabel3.CursorType = System.Windows.Forms.Cursors.Default;
+            this.bunifuLabel3.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bunifuLabel3.Location = new System.Drawing.Point(465, 7);
+            this.bunifuLabel3.Name = "bunifuLabel3";
+            this.bunifuLabel3.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.bunifuLabel3.Size = new System.Drawing.Size(43, 31);
+            this.bunifuLabel3.TabIndex = 11;
+            this.bunifuLabel3.Text = "Đến:";
+            this.bunifuLabel3.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
+            this.bunifuLabel3.TextFormat = Bunifu.UI.WinForms.BunifuLabel.TextFormattingOptions.Default;
+            // 
+            // bunifuDatePicker2
+            // 
+            this.bunifuDatePicker2.BackColor = System.Drawing.Color.Transparent;
+            this.bunifuDatePicker2.BorderColor = System.Drawing.Color.Silver;
+            this.bunifuDatePicker2.BorderRadius = 10;
+            this.bunifuDatePicker2.Color = System.Drawing.Color.Silver;
+            this.bunifuDatePicker2.DateBorderThickness = Bunifu.UI.WinForms.BunifuDatePicker.BorderThickness.Thin;
+            this.bunifuDatePicker2.DateTextAlign = Bunifu.UI.WinForms.BunifuDatePicker.TextAlign.Left;
+            this.bunifuDatePicker2.DisabledColor = System.Drawing.Color.Gray;
+            this.bunifuDatePicker2.DisplayWeekNumbers = false;
+            this.bunifuDatePicker2.DPHeight = 0;
+            this.bunifuDatePicker2.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
+            this.bunifuDatePicker2.FillDatePicker = false;
+            this.bunifuDatePicker2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bunifuDatePicker2.ForeColor = System.Drawing.Color.Black;
+            this.bunifuDatePicker2.Icon = ((System.Drawing.Image)(resources.GetObject("bunifuDatePicker2.Icon")));
+            this.bunifuDatePicker2.IconColor = System.Drawing.Color.DarkGray;
+            this.bunifuDatePicker2.IconLocation = Bunifu.UI.WinForms.BunifuDatePicker.Indicator.Right;
+            this.bunifuDatePicker2.LeftTextMargin = 5;
+            this.bunifuDatePicker2.Location = new System.Drawing.Point(514, 6);
+            this.bunifuDatePicker2.MinimumSize = new System.Drawing.Size(4, 32);
+            this.bunifuDatePicker2.Name = "bunifuDatePicker2";
+            this.bunifuDatePicker2.Size = new System.Drawing.Size(250, 32);
+            this.bunifuDatePicker2.TabIndex = 10;
+            this.bunifuDatePicker2.Value = new System.DateTime(2022, 10, 24, 0, 10, 0, 0);
             // 
             // bunifuLabel1
             // 
@@ -4621,47 +4671,32 @@
             // 
             this.gunaPieDataset1.Label = "Pie1";
             // 
-            // bunifuDatePicker2
+            // tabPage5
             // 
-            this.bunifuDatePicker2.BackColor = System.Drawing.Color.Transparent;
-            this.bunifuDatePicker2.BorderColor = System.Drawing.Color.Silver;
-            this.bunifuDatePicker2.BorderRadius = 10;
-            this.bunifuDatePicker2.Color = System.Drawing.Color.Silver;
-            this.bunifuDatePicker2.DateBorderThickness = Bunifu.UI.WinForms.BunifuDatePicker.BorderThickness.Thin;
-            this.bunifuDatePicker2.DateTextAlign = Bunifu.UI.WinForms.BunifuDatePicker.TextAlign.Left;
-            this.bunifuDatePicker2.DisabledColor = System.Drawing.Color.Gray;
-            this.bunifuDatePicker2.DisplayWeekNumbers = false;
-            this.bunifuDatePicker2.DPHeight = 0;
-            this.bunifuDatePicker2.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
-            this.bunifuDatePicker2.FillDatePicker = false;
-            this.bunifuDatePicker2.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuDatePicker2.ForeColor = System.Drawing.Color.Black;
-            this.bunifuDatePicker2.Icon = ((System.Drawing.Image)(resources.GetObject("bunifuDatePicker2.Icon")));
-            this.bunifuDatePicker2.IconColor = System.Drawing.Color.DarkGray;
-            this.bunifuDatePicker2.IconLocation = Bunifu.UI.WinForms.BunifuDatePicker.Indicator.Right;
-            this.bunifuDatePicker2.LeftTextMargin = 5;
-            this.bunifuDatePicker2.Location = new System.Drawing.Point(514, 6);
-            this.bunifuDatePicker2.MinimumSize = new System.Drawing.Size(4, 32);
-            this.bunifuDatePicker2.Name = "bunifuDatePicker2";
-            this.bunifuDatePicker2.Size = new System.Drawing.Size(250, 32);
-            this.bunifuDatePicker2.TabIndex = 10;
-            this.bunifuDatePicker2.Value = new System.DateTime(2022, 10, 24, 0, 10, 0, 0);
+            this.tabPage5.Controls.Add(this.chartOai);
+            this.tabPage5.Location = new System.Drawing.Point(4, 4);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(1013, 463);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "tabPage5";
+            this.tabPage5.UseVisualStyleBackColor = true;
             // 
-            // bunifuLabel3
+            // chartOai
             // 
-            this.bunifuLabel3.AllowParentOverrides = false;
-            this.bunifuLabel3.AutoEllipsis = false;
-            this.bunifuLabel3.Cursor = System.Windows.Forms.Cursors.Default;
-            this.bunifuLabel3.CursorType = System.Windows.Forms.Cursors.Default;
-            this.bunifuLabel3.Font = new System.Drawing.Font("Segoe UI Semibold", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bunifuLabel3.Location = new System.Drawing.Point(465, 7);
-            this.bunifuLabel3.Name = "bunifuLabel3";
-            this.bunifuLabel3.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.bunifuLabel3.Size = new System.Drawing.Size(43, 31);
-            this.bunifuLabel3.TabIndex = 11;
-            this.bunifuLabel3.Text = "Đến:";
-            this.bunifuLabel3.TextAlignment = System.Drawing.ContentAlignment.MiddleRight;
-            this.bunifuLabel3.TextFormat = Bunifu.UI.WinForms.BunifuLabel.TextFormattingOptions.Default;
+            chartArea1.Name = "ChartArea1";
+            this.chartOai.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chartOai.Legends.Add(legend1);
+            this.chartOai.Location = new System.Drawing.Point(152, 48);
+            this.chartOai.Name = "chartOai";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chartOai.Series.Add(series1);
+            this.chartOai.Size = new System.Drawing.Size(300, 300);
+            this.chartOai.TabIndex = 3;
+            this.chartOai.Text = "chart1";
             // 
             // Main
             // 
@@ -4688,6 +4723,8 @@
             this.tabPage2.PerformLayout();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartOai)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -4764,5 +4801,7 @@
         private UI.WinForms.BunifuPanel bunifuPanel1;
         private UI.WinForms.BunifuLabel bunifuLabel3;
         private UI.WinForms.BunifuDatePicker bunifuDatePicker2;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartOai;
     }
 }

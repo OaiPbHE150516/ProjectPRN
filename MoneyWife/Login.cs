@@ -28,33 +28,6 @@ namespace MoneyWife
         MoneyWifeContext context = new MoneyWifeContext();
         private User newUser;
 
-        //private void btnLogin_Click(object sender, EventArgs e)
-        //{
-        //    //get text from txtUsername and txtPassword
-        //    string username = txtUsername.Text;
-        //    string password = txtPassword.Text;
-        //    MessageBox.Show("username: " + username + " password: " + password);
-        //    //check if username and password is empty
-        //    if (username == "" || password == "")
-        //    {
-        //        MessageBox.Show("Username or password is empty");
-        //        return;
-        //    }
-        //    //check if username and password is correct
-        //    User? user = context.Users.FirstOrDefault(u => u.Username == username && u.Password == password);
-        //    MessageBox.Show("user: " + user.Username);
-        //    if (user != null)
-        //    {
-        //        MessageBox.Show("Login successfully");
-        //    }
-        //    else
-        //    {
-        //        //if incorrect then show message
-        //        MessageBox.Show("Username or password is incorrect");
-        //    }
-
-        //}
-
         private void btnRegister_Click(object sender, EventArgs e)
         {
             //open register form and close login form
@@ -70,6 +43,18 @@ namespace MoneyWife
 
         private void btnLogin_Click_1(object sender, EventArgs e)
         {
+            if (ckbRememberMe.Checked)
+            {
+                Properties.Settings.Default.Username = txtUsername.Text;
+                Properties.Settings.Default.Password = txtPassword.Text;
+                Properties.Settings.Default.Save();
+            }
+            else
+            {
+                Properties.Settings.Default.Username = "";
+                Properties.Settings.Default.Password = "";
+                Properties.Settings.Default.Save();
+            }
             //get text from txtUsername and txtPassword
             string username = txtUsername.Text;
             string password = txtPassword.Text;
@@ -99,6 +84,22 @@ namespace MoneyWife
                 MessageBox.Show("Username or password is incorrect");
                 btnLogin.Enabled = true;
                 bnfLoader.Visible = false;
+            }
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+            if (Properties.Settings.Default.Username != "")
+            {
+                txtUsername.Text = Properties.Settings.Default.Username;
+                txtPassword.Text = Properties.Settings.Default.Password;
+                ckbRememberMe.Checked = true;
+            }
+            else
+            {
+                txtUsername.Text = "";
+                txtPassword.Text = "";
+                ckbRememberMe.Checked = false;
             }
         }
     }

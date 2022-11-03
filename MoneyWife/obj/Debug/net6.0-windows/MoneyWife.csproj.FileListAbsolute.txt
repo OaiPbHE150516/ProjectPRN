@@ -143,3 +143,10 @@ E:\Sem6\PRN211\ProjectPRN\MoneyWife\obj\Debug\net6.0-windows\ref\MoneyWife.dll
 E:\Sem6\PRN211\ProjectPRN\MoneyWife\obj\Debug\net6.0-windows\MoneyWife.Main.resources
 E:\Sem6\PRN211\ProjectPRN\MoneyWife\bin\Debug\net6.0-windows\Guna.Charts.WinForms.dll
 E:\Sem6\PRN211\ProjectPRN\MoneyWife\obj\Debug\net6.0-windows\MoneyWife.FormTest.resources
+E:\Sem6\PRN211\ProjectPRN\MoneyWife\bin\Debug\net6.0-windows\Syncfusion.Licensing.dll
+E:\Sem6\PRN211\ProjectPRN\MoneyWife\bin\Debug\net6.0-windows\Syncfusion.Core.XForms.dll
+E:\Sem6\PRN211\ProjectPRN\MoneyWife\bin\Debug\net6.0-windows\Syncfusion.SfChart.XForms.dll
+E:\Sem6\PRN211\ProjectPRN\MoneyWife\bin\Debug\net6.0-windows\Xamarin.Forms.Core.dll
+E:\Sem6\PRN211\ProjectPRN\MoneyWife\bin\Debug\net6.0-windows\Xamarin.Forms.Platform.dll
+E:\Sem6\PRN211\ProjectPRN\MoneyWife\bin\Debug\net6.0-windows\Xamarin.Forms.Xaml.dll
+E:\Sem6\PRN211\ProjectPRN\MoneyWife\bin\Debug\net6.0-windows\MoneyWife.dll.config

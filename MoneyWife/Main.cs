@@ -39,16 +39,13 @@ namespace MoneyWife
 
         private void Main_Load(object sender, EventArgs e)
         {
+            btnDropdownExInTotal.SelectedIndex = 0;
+            bnfDropdownDayMonth.SelectedIndex = 1;
             btnDropdownTime.SelectedIndex = 0;
-            btnDropdownExInTotal.SelectedIndex = 1;
-            //disable btnDropdownTime.SelectedIndex = 5
-            //btnDropdownTime.Items[5].En
+            btnReport.Enabled = false;
             loadMoney();
-            //loadHistoryTransaction();
-            //load bnfDatePicker with current date
             bnfDatePickerIncome.Value = DateTime.Now;
             bnfDatePickerExpense.Value = DateTime.Now;
-            //
             offBtn();
             //add all income button to list
             listBtnTypeIncome.Add(btnMeCho);
@@ -78,11 +75,6 @@ namespace MoneyWife
                 btn.AllowAnimations = false;
             }
 
-
-        }
-
-        private void loadChart()
-        {
 
         }
 
@@ -135,17 +127,33 @@ namespace MoneyWife
                     break;
                 case 4: // Tất cả
                     //get first record of user in table Transaction which have type = typeInEx
-                    begin = (from t in context.Transactions
-                             where t.UserId == user.Id && t.MoneyTypeNavigation.Category == typeInEx
-                             orderby t.DateUse ascending
-                             select t.DateUse).FirstOrDefault();
+                    DateTime beginExpense = (from t in context.Transactions
+                                             where t.UserId == user.Id && t.MoneyTypeNavigation.Category == "Expense"
+                                             orderby t.DateUse ascending
+                                             select t.DateUse).FirstOrDefault();
+
+                    DateTime beginIncome = (from t in context.Transactions
+                                            where t.UserId == user.Id && t.MoneyTypeNavigation.Category == "Income"
+                                            orderby t.DateUse ascending
+                                            select t.DateUse).FirstOrDefault();
+                    //lấy begin của Income và Expense, so sánh lấy begin xa hơn
+                    begin = beginExpense > beginIncome ? beginIncome : beginExpense;
                     //get last record of user in table Transaction which have type = typeInEx
-                    end = (from t in context.Transactions
-                           where t.UserId == user.Id && t.MoneyTypeNavigation.Category == typeInEx
-                           orderby t.DateUse descending
-                           select t.DateUse).FirstOrDefault();
+                    DateTime endExpense = (from t in context.Transactions
+                                           where t.UserId == user.Id && t.MoneyTypeNavigation.Category == "Expense"
+                                           orderby t.DateUse descending
+                                           select t.DateUse).FirstOrDefault();
+                    DateTime endIncome = (from t in context.Transactions
+                                          where t.UserId == user.Id && t.MoneyTypeNavigation.Category == "Income"
+                                          orderby t.DateUse descending
+                                          select t.DateUse).FirstOrDefault();
+                    //lấy end của Income và Expense, so sánh lấy end gần hơn
+                    end = endExpense < endIncome ? endIncome : endExpense;
                     break;
                 default:
+                    begin = DateTime.Now;
+                    end = DateTime.Now;
+
                     break;
             }
             fixBugUndefined();
@@ -157,27 +165,23 @@ namespace MoneyWife
         private void btnDropdownExInTotal_SelectedIndexChanged(object sender, EventArgs e)
         {
             getDataToDrawChart();
-            ////nếu selectedIndex = 2 (tất cả) thì đổi items của btnDropdownTime thành items: "Ngày", "Tháng"
-            //if (btnDropdownExInTotal.SelectedIndex == 2)
-            //{
-            //    //remove all items of btnDropdownTime
-            //    btnDropdownTime.Items.Clear();
-            //    String[] strings = { "Ngày", "Tháng" };
-            //    foreach (var item in strings)
-            //    {
-            //        btnDropdownTime.Items.Add(item);
-            //    }
-            //}
-            //else
-            //{
-            //    //remove all items of btnDropdownTime
-            //    btnDropdownTime.Items.Clear();
-            //    String[] strings = { "Hôm nay", "Tuần này", "Tháng này", "Năm nay", "Tất cả" };
-            //    foreach (var item in strings)
-            //    {
-            //        btnDropdownTime.Items.Add(item);
-            //    }
-            //}
+            //nếu selectedindex = 2 thì bnfDropdownDayMonth.Visibile = true
+            if (btnDropdownExInTotal.SelectedIndex == 2)
+            {
+                bnfDropdownDayMonth.Visible = true;
+                panelInExBdSd.Visible = true;
+                bnfDgvReportTotal.Visible = true;
+                bnfDgvReport.Visible = false;
+                //gunaChart1.Visible = false;
+            }
+            else
+            {
+                bnfDropdownDayMonth.Visible = false;
+                panelInExBdSd.Visible = false;
+                bnfDgvReportTotal.Visible = false;
+                bnfDgvReport.Visible = true;
+                //gunaChart1.Visible = true;
+            }
         }
         private void fixBugUndefined()
         {
@@ -331,92 +335,287 @@ namespace MoneyWife
             }
         }
 
+        private void bnfDropdownDayMonth_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            drawChartTotal(bnfDatePickerChartFrom.Value, bnfDatePickerChartTo.Value);
+        }
+        
+
         private void drawChartTotal(DateTime begin, DateTime end)
         {
-            Dictionary<string, decimal> dataTotalExpense = new Dictionary<string, decimal>();
-            //lấy ra tổng chi tiêu sau mỗi tháng của user, sắp xếp theo thứ tự thời gian từ tháng trước đến tháng sau
-            var queryTotalExpense = from t in context.Transactions
-                                    where t.UserId == user.Id && t.MoneyTypeNavigation.Category == "Expense" && t.DateUse > begin && t.DateUse < end
-                                    group t by new { t.DateUse.Year, t.DateUse.Month } into g
-                                    select new
-                                    {
-                                        Year = g.Key.Year,
-                                        Month = g.Key.Month,
-                                        Total = g.Sum(t => t.MoneyNum)
-                                    };
-            // gán dữ liệu vào biểu đồ
-            foreach (var item in queryTotalExpense)
+            //nếu không trong số checkbox nào được chọn thì hiển thị thông báo
+            if (!ckbIncomeChart.Checked && !ckbExpenseChart.Checked && !ckbBienDongChart.Checked && !ckbSoDuChart.Checked)
             {
-                dataTotalExpense.Add(item.Month + "/" + item.Year, item.Total);
+                lblNotificationChartData.Text = "Vui lòng chọn ít nhất một loại biểu đồ";
+                lblNotificationChartData.Visible = true;
+                return;
             }
-
-            Dictionary<string, decimal> dataTotalIncome = new Dictionary<string, decimal>();
-            //lấy ra tổng thu nhập sau mỗi tháng của user, sắp xếp theo thứ tự thời gian từ tháng trước đến tháng sau
-            var queryTotalIncome = from t in context.Transactions
-                                   where t.UserId == user.Id && t.MoneyTypeNavigation.Category == "Income" && t.DateUse > begin && t.DateUse < end
-                                   group t by new { t.DateUse.Year, t.DateUse.Month } into g
-                                   select new
-                                   {
-                                       Year = g.Key.Year,
-                                       Month = g.Key.Month,
-                                       Total = g.Sum(t => t.MoneyNum)
-                                   };
-            // gán dữ liệu vào biểu đồ
-            foreach (var item in queryTotalIncome)
+            else
             {
-                dataTotalIncome.Add(item.Month + "/" + item.Year, item.Total);
+                lblNotificationChartData.Text = "";
+                lblNotificationChartData.Visible = false;
             }
-
-            //một dictionary chứa dữ liệu là hiệu của thu nhập - chi tiêu
-            Dictionary<string, decimal> dataTotal = new Dictionary<string, decimal>();
-            foreach (var item in dataTotalIncome)
+            if (bnfDropdownDayMonth.SelectedIndex == 0) //Ngày
             {
-                dataTotal.Add(item.Key, item.Value);
-            }
-            foreach (var item in dataTotalExpense)
-            {
-                if (dataTotal.ContainsKey(item.Key))
+                //lấy ra transaction của user sau mỗi ngày, sắp xếp theo thứ tự thời gian từ ngày trước đến ngày sau
+                var queryDay = from t in context.Transactions
+                               where t.UserId == user.Id && t.DateUse > begin && t.DateUse < end
+                               group t by new { t.DateUse.Year, t.DateUse.Month, t.DateUse.Day } into g
+                               select new
+                               {
+                                   Year = g.Key.Year,
+                                   Month = g.Key.Month,
+                                   Day = g.Key.Day,
+                                   Total = g.Sum(t => t.MoneyNum)
+                               };
+                // gán dữ liệu vào biểu đồ
+                Dictionary<DateTime, decimal> dataDay = new Dictionary<DateTime, decimal>();
+                foreach (var item in queryDay)
                 {
-                    dataTotal[item.Key] -= item.Value;
+                    dataDay.Add(new DateTime(item.Year, item.Month, item.Day), (decimal)item.Total);
                 }
-                else
+
+                //sắp xếp lại theo thứ tự thời gian từ ngày trước đến ngày sau
+                dataDay = dataDay.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+
+                //lấy ra thu nhập của user sau mỗi ngày, sắp xếp theo thứ tự thời gian từ ngày trước đến ngày sau
+                var queryIncomeDay = from t in context.Transactions
+                                     where t.UserId == user.Id && t.MoneyTypeNavigation.Category == "Income" && t.DateUse > begin && t.DateUse < end
+                                     group t by new { t.DateUse.Year, t.DateUse.Month, t.DateUse.Day } into g
+                                     select new
+                                     {
+                                         Year = g.Key.Year,
+                                         Month = g.Key.Month,
+                                         Day = g.Key.Day,
+                                         Total = g.Sum(t => t.MoneyNum)
+                                     };
+                // gán dữ liệu vào biểu đồ
+                Dictionary<DateTime, decimal> dataIncomeDay = new Dictionary<DateTime, decimal>();
+                foreach (var item in queryIncomeDay)
                 {
-                    dataTotal.Add(item.Key, -item.Value);
+                    dataIncomeDay.Add(new DateTime(item.Year, item.Month, item.Day), (decimal)item.Total);
+                }
+
+                //sắp xếp lại theo thứ tự thời gian từ ngày trước đến ngày sau
+                //dataIncomeDay = dataIncomeDay.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+
+                //lấy ra chi tiêu của user sau mỗi ngày, sắp xếp theo thứ tự thời gian từ ngày trước đến ngày sau
+                var queryExpenseDay = from t in context.Transactions
+                                      where t.UserId == user.Id && t.MoneyTypeNavigation.Category == "Expense" && t.DateUse > begin && t.DateUse < end
+                                      group t by new { t.DateUse.Year, t.DateUse.Month, t.DateUse.Day } into g
+                                      select new
+                                      {
+                                          Year = g.Key.Year,
+                                          Month = g.Key.Month,
+                                          Day = g.Key.Day,
+                                          Total = g.Sum(t => t.MoneyNum)
+                                      };
+                // gán dữ liệu vào biểu đồ
+                Dictionary<DateTime, decimal> dataExpenseDay = new Dictionary<DateTime, decimal>();
+                foreach (var item in queryExpenseDay)
+                {
+                    dataExpenseDay.Add(new DateTime(item.Year, item.Month, item.Day), (decimal)item.Total);
+                }
+
+                //sắp xếp lại theo thứ tự thời gian từ ngày trước đến ngày sau
+                //dataExpenseDay = dataExpenseDay.OrderBy(x => x.Key).ToDictionary(x => x.Key, x => x.Value);
+
+                foreach (var item in dataDay)
+                {
+                    if (!dataIncomeDay.ContainsKey(item.Key))
+                    {
+                        dataIncomeDay.Add(item.Key, 0);
+                    }
+                    if (!dataExpenseDay.ContainsKey(item.Key))
+                    {
+                        dataExpenseDay.Add(item.Key, 0);
+                    }
+                }
+
+                Dictionary<DateTime, decimal> dataBalanceDay = new Dictionary<DateTime, decimal>();
+                foreach (var item in dataDay)
+                {
+                    dataBalanceDay.Add(item.Key, dataIncomeDay[item.Key] - dataExpenseDay[item.Key]);
+                }
+
+                Chart.StackedBar.DrawStackedBar(gunaChart1, ckbIncomeChart, ckbExpenseChart,
+                    ckbBienDongChart, ckbSoDuChart, "ngày", dataDay, dataIncomeDay, dataExpenseDay, dataBalanceDay);
+
+                //load dataDay vào bnfDgvReportTotal
+                DataTable dataTable = new DataTable();
+                dataTable.Columns.Add("Ngày");
+                dataTable.Columns.Add("Thu nhập");
+                dataTable.Columns.Add("Chi tiêu");
+                dataTable.Columns.Add("Số dư");
+                dataTable.Rows.Add("", "", "", "");
+                foreach (var item in dataDay)
+                {
+                    dataTable.Rows.Add(item.Key.ToString("dd/MM/yy", CultureInfo.CreateSpecificCulture("vi-VN")), 
+                        dataIncomeDay[item.Key].ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")), 
+                        dataExpenseDay[item.Key].ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")), 
+                        dataBalanceDay[item.Key].ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")));
+                }
+                //tính tổng
+                decimal totalIncome = dataIncomeDay.Values.Sum();
+                decimal totalExpense = dataExpenseDay.Values.Sum();
+                decimal totalBalance = dataBalanceDay.Values.Sum();
+                dataTable.Rows.Add("Tổng", totalIncome.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")),
+                    totalExpense.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")),
+                    totalBalance.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")));
+                bnfDgvReportTotal.DataSource = dataTable;               
+            }
+            else
+            {
+                //lấy ra transaction của mỗi tháng, sắp xếp theo thứ tự thời gian từ tháng trước đến tháng sau
+                var queryMonth = from t in context.Transactions
+                                 where t.UserId == user.Id && t.DateUse > begin && t.DateUse < end
+                                 group t by new { t.DateUse.Year, t.DateUse.Month } into g
+                                 select new
+                                 {
+                                     Year = g.Key.Year,
+                                     Month = g.Key.Month,
+                                     Total = g.Sum(t => t.MoneyNum)
+                                 };
+                // gán dữ liệu vào biểu đồ
+                Dictionary<DateTime, decimal> dataMonth = new Dictionary<DateTime, decimal>();
+                foreach (var item in queryMonth)
+                {
+                    dataMonth.Add(new DateTime(item.Year, item.Month, 1), (decimal)item.Total);
+                }
+
+                //lấy ra thu nhập của user sau mỗi tháng, sắp xếp theo thứ tự thời gian từ tháng trước đến tháng sau
+                var queryIncomeMonth = from t in context.Transactions
+                                       where t.UserId == user.Id && t.MoneyTypeNavigation.Category == "Income" && t.DateUse > begin && t.DateUse < end
+                                       group t by new { t.DateUse.Year, t.DateUse.Month } into g
+                                       select new
+                                       {
+                                           Year = g.Key.Year,
+                                           Month = g.Key.Month,
+                                           Total = g.Sum(t => t.MoneyNum)
+                                       };
+                // gán dữ liệu vào biểu đồ
+                Dictionary<DateTime, decimal> dataIncomeMonth = new Dictionary<DateTime, decimal>();
+                foreach (var item in queryIncomeMonth)
+                {
+                    dataIncomeMonth.Add(new DateTime(item.Year, item.Month, 1), (decimal)item.Total);
+                }
+
+                //lấy ra chi tiêu của user sau mỗi tháng, sắp xếp theo thứ tự thời gian từ tháng trước đến tháng sau
+                var queryExpenseMonth = from t in context.Transactions
+                                        where t.UserId == user.Id && t.MoneyTypeNavigation.Category == "Expense" && t.DateUse > begin && t.DateUse < end
+                                        group t by new { t.DateUse.Year, t.DateUse.Month } into g
+                                        select new
+                                        {
+                                            Year = g.Key.Year,
+                                            Month = g.Key.Month,
+                                            Total = g.Sum(t => t.MoneyNum)
+                                        };
+                // gán dữ liệu vào biểu đồ
+                Dictionary<DateTime, decimal> dataExpenseMonth = new Dictionary<DateTime, decimal>();
+                foreach (var item in queryExpenseMonth)
+                {
+                    dataExpenseMonth.Add(new DateTime(item.Year, item.Month, 1), (decimal)item.Total);
+                }
+
+                //kiểm tra nếu có tháng nào không có thu nhập hoặc chi tiêu thì thêm vào
+                foreach (var item in dataMonth)
+                {
+                    if (!dataIncomeMonth.ContainsKey(item.Key))
+                    {
+                        dataIncomeMonth.Add(item.Key, 0);
+                    }
+                    if (!dataExpenseMonth.ContainsKey(item.Key))
+                    {
+                        dataExpenseMonth.Add(item.Key, 0);
+                    }
+                }
+
+                //tính số dư của mỗi tháng
+                Dictionary<DateTime, decimal> dataBalanceMonth = new Dictionary<DateTime, decimal>();
+                foreach (var item in dataMonth)
+                {
+                    dataBalanceMonth.Add(item.Key, dataIncomeMonth[item.Key] - dataExpenseMonth[item.Key]);
+                }
+                Chart.StackedBar.DrawStackedBar(gunaChart1, ckbIncomeChart, ckbExpenseChart,
+                    ckbBienDongChart, ckbSoDuChart, "tháng", dataMonth, dataIncomeMonth, dataExpenseMonth, dataBalanceMonth);
+
+                //load dataMonth vào bnfDgvReportTotal
+                DataTable dataTable = new DataTable();
+                dataTable.Columns.Add("Tháng", typeof(string));
+                dataTable.Columns.Add("Thu nhập", typeof(string));
+                dataTable.Columns.Add("Chi tiêu", typeof(string));
+                dataTable.Columns.Add("Số dư", typeof(string));
+                dataTable.Rows.Add("", "", "", "");
+                foreach (var item in dataMonth)
+                {
+                    dataTable.Rows.Add(item.Key.ToString("MM/yyyy"),
+                        dataIncomeMonth[item.Key].ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")),
+                        dataExpenseMonth[item.Key].ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")),
+                        dataBalanceMonth[item.Key].ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")));
+                }
+                //tính tổng
+                decimal totalIncome = dataIncomeMonth.Values.Sum();
+                decimal totalExpense = dataExpenseMonth.Values.Sum();
+                decimal totalBalance = dataBalanceMonth.Values.Sum();
+                dataTable.Rows.Add("Tổng", totalIncome.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")),
+                    totalExpense.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")),
+                    totalBalance.ToString("C0", CultureInfo.CreateSpecificCulture("vi-VN")));
+
+                bnfDgvReportTotal.DataSource = dataTable;
+               
+            }
+        }
+        private void bnfDgvReportTotal_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            //style middleright to all cell
+            e.CellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            if (e.RowIndex != -1)
+            {
+                if (e.RowIndex < 1 || e.ColumnIndex < 0)
+                {
+                    return;
+                }
+                if ( e.RowIndex != bnfDgvReportTotal.Rows.Count - 1)
+                {
+                    //nếu là cột 1 (thu thu nhập) thì có màu xanh
+                    if(e.ColumnIndex == 1)
+                    {
+                        e.CellStyle.ForeColor = Color.Green;
+                    }
+                    //nếu là cột 2 (chi tiêu) thì có màu đỏ
+                    else if (e.ColumnIndex == 2)
+                    {
+                        e.CellStyle.ForeColor = Color.Red;
+                    }
+                    //nếu là cột 3 (biến động) thì có màu xanh dương
+                    else if (e.ColumnIndex == 3)
+                    {
+                        if (e.Value.ToString().Contains("-"))
+                        {
+                            e.CellStyle.ForeColor = Color.Red;
+                        }
+                        else
+                        {
+                            e.CellStyle.ForeColor = Color.Green;
+                        }
+                    }
+                }
+
+                //nếu row ở hàng cuối cùng thì style bold
+                if (e.RowIndex == bnfDgvReportTotal.Rows.Count - 1)
+                {
+                    e.CellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
                 }
             }
-
-
-
-            ////nếu dictionary mà rỗng thì hiển thị thông báo
-            //if (dataTotalExpense.Count == 0 && dataTotalIncome.Count == 0)
-            //{
-            //    //MessageBox.Show("Không có dữ liệu trong khoảng thời gian này", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    //nếu begin và end có chung ngày tháng năm thì hiển thị thông báo
-            //    if (begin.Year == end.Year && begin.Month == end.Month && begin.Day == end.Day)
-            //    {
-            //        lblNotificationChartData.Text = "Không có dữ liệu trong ngày <br>"
-            //            + " hôm nay <strong><i>" + begin.ToString("dddd, dd MMM, yyy", CultureInfo.CreateSpecificCulture("vi-VN")) + "</i></strong>";
-            //    }
-            //    else
-            //    {
-            //        lblNotificationChartData.Text = "Không có dữ liệu trong khoảng thời gian <br>"
-            //            + " từ: <strong><i>" + begin.ToString("dddd, dd MMM, yyy", CultureInfo.CreateSpecificCulture("vi-VN")) + "</i></strong> <br>"
-            //            + " đến: <strong><i>" + end.ToString("dddd, dd MMM, yyy", CultureInfo.CreateSpecificCulture("vi-VN")) + "</i></strong>";
-            //    }
-            //    lblNotificationChartData.Visible = true;
-            //    fixBugUndefined();
-            //}
-            //else
-            //{
-            //    fixBugUndefined();
-            //    lblNotificationChartData.Text = "";
-            //    lblNotificationChartData.Visible = false;
-            //    //vẽ biểu đồ
-            //    Chart.StackedBar.DrawStackedBar(gunaChart1, "Biểu đồ chi tiêu theo tháng", dataTotalExpense, dataTotalIncome);
-            //}
-            Chart.StackedBar.DrawStackedBar(gunaChart1, "Biểu đồ chi tiêu theo tháng", dataTotalIncome, dataTotalExpense, dataTotal);
         }
 
+        private void bnfDgvReportTotal_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
+        {
+            //row đầu tiên height = 0
+            bnfDgvReportTotal.Rows[0].Height = 0;
+            //chỉnh height của bnfDgvReport theo số dòng
+            bnfDgvReportTotal.Height = bnfDgvReportTotal.Rows.Count * bnfDgvReport.Rows[1].Height;
+        }
         private void loadDgvReport(Dictionary<string, int> dataTransaction, String inEx)
         {
             //load dataTransaction vào bnfDgvReport
@@ -668,7 +867,8 @@ namespace MoneyWife
         //nav button
         private void btnReport_Click(object sender, EventArgs e)
         {
-            loadChart();
+            //drawChartTotal(bnfDatePickerChartFrom.Value, bnfDatePickerChartTo.Value);
+            getDataToDrawChart();
             bnfPageMain.PageIndex = 0;
             //disable this button
             btnReport.Enabled = false;
@@ -739,19 +939,43 @@ namespace MoneyWife
             {
                 txtMoneyIncome.Text = "";
                 txtMoneyIncome.BorderColorIdle = System.Drawing.Color.Silver;
+                txtNoteIncome.Text = "";
+                txtNoteIncome.BorderColorIdle = System.Drawing.Color.Silver;
                 lblRequiredMoneyIncome.Visible = false;
                 lblRequiredTypeIncome.Visible = false;
+                inVisibleBtnSoIncome();
+                resetBtnIncome();
+                foreach (BunifuButton2 btn in listBtnTypeIncome)
+                {
+                    if (btn.Enabled == false)
+                    {
+                        btn.Enabled = true;
+                    }
+                }
+                btnBankIncome.Enabled = true;
+                btnCashIncome.Enabled = true;
             }
             else if (v == "expense")
             {
                 txtMoneyExpense.Text = "";
                 txtMoneyExpense.BorderColorIdle = System.Drawing.Color.Silver;
+                txtNoteExpense.Text = "";
+                txtNoteExpense.BorderColorIdle = System.Drawing.Color.Silver;
                 btnCashExpense.IdleBorderColor = System.Drawing.Color.Silver;
                 btnBankExpense.IdleBorderColor = System.Drawing.Color.Silver;
                 lblRequiredMoneyExpense.Visible = false;
                 lblRequiredTypeExpense.Visible = false;
                 inVisibleBtnSoExpense();
                 resetBtnExpense();
+                foreach (BunifuButton2 btn in listBtnTypeExpense)
+                {
+                    if (btn.Enabled == false)
+                    {
+                        btn.Enabled = true;
+                    }
+                }
+                btnCashExpense.Enabled = true;
+                btnBankExpense.Enabled = true;
             }
 
         }
@@ -1077,10 +1301,16 @@ namespace MoneyWife
             {
                 money.Bank += incomeMoneyDecimal;
             }
-            //save money of user to database
-            context.SaveChanges();
-            //load lại tiền của user
-            loadMoney();
+            if (context.SaveChanges() > 0)
+            {
+                //load lại tiền của user
+                loadMoney();
+                clearBtnTxt("income");
+            }
+            else
+            {
+                MessageBox.Show("Cập nhật thất bại!");
+            }
         }
 
 
@@ -1492,8 +1722,25 @@ namespace MoneyWife
             checkExpenseMoney();
         }
 
+        private void ckbIncomeChart_CheckedChanged(object sender, Bunifu.UI.WinForms.BunifuCheckBox.CheckedChangedEventArgs e)
+        {
+            drawChartTotal(bnfDatePickerChartFrom.Value, bnfDatePickerChartTo.Value);
+        }
 
+        private void cknExpenseChart_CheckedChanged(object sender, Bunifu.UI.WinForms.BunifuCheckBox.CheckedChangedEventArgs e)
+        {
+            drawChartTotal(bnfDatePickerChartFrom.Value, bnfDatePickerChartTo.Value);
+        }
 
+        private void ckbBienDongChart_CheckedChanged(object sender, Bunifu.UI.WinForms.BunifuCheckBox.CheckedChangedEventArgs e)
+        {
+            drawChartTotal(bnfDatePickerChartFrom.Value, bnfDatePickerChartTo.Value);
+        }
+
+        private void ckbSoDuChart_CheckedChanged(object sender, Bunifu.UI.WinForms.BunifuCheckBox.CheckedChangedEventArgs e)
+        {
+            drawChartTotal(bnfDatePickerChartFrom.Value, bnfDatePickerChartTo.Value);
+        }
 
 
 

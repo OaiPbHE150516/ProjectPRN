@@ -667,6 +667,38 @@
           }
         }
       },
+      "Syncfusion.Licensing/20.3.0.52": {
+        "runtime": {
+          "lib/net6.0/Syncfusion.Licensing.dll": {
+            "assemblyVersion": "20.3.0.52",
+            "fileVersion": "20.3.0.52"
+          }
+        }
+      },
+      "Syncfusion.Xamarin.Core/20.3.0.52": {
+        "dependencies": {
+          "Syncfusion.Licensing": "20.3.0.52",
+          "Xamarin.Forms": "5.0.0.2012"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Syncfusion.Core.XForms.dll": {
+            "assemblyVersion": "20.3451.0.52",
+            "fileVersion": "20.3451.0.52"
+          }
+        }
+      },
+      "Syncfusion.Xamarin.SfChart/20.3.0.52": {
+        "dependencies": {
+          "Syncfusion.Xamarin.Core": "20.3.0.52",
+          "Xamarin.Forms": "5.0.0.2012"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Syncfusion.SfChart.XForms.dll": {
+            "assemblyVersion": "20.3451.0.52",
+            "fileVersion": "20.3451.0.52"
+          }
+        }
+      },
       "System.CodeDom/6.0.0": {
         "runtime": {
           "lib/net6.0/System.CodeDom.dll": {
@@ -1501,6 +1533,22 @@
             "fileVersion": "6.0.21.52210"
           }
         }
+      },
+      "Xamarin.Forms/5.0.0.2012": {
+        "runtime": {
+          "lib/netstandard2.0/Xamarin.Forms.Core.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "5.0.0.671"
+          },
+          "lib/netstandard2.0/Xamarin.Forms.Platform.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "5.0.0.671"
+          },
+          "lib/netstandard2.0/Xamarin.Forms.Xaml.dll": {
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "5.0.0.671"
+          }
+        }
       }
     }
   },
@@ -1897,6 +1945,27 @@
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
     },
+    "Syncfusion.Licensing/20.3.0.52": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-c1CmwlcbQdAlgypw84H9MqCdaXNEs4CiD7VBRWtJ9+xMkctcgcztUHaMlvFwnJX28kIuPt1eDvmXzTGblJJeCw==",
+      "path": "syncfusion.licensing/20.3.0.52",
+      "hashPath": "syncfusion.licensing.20.3.0.52.nupkg.sha512"
+    },
+    "Syncfusion.Xamarin.Core/20.3.0.52": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7CmzRloO6Z5tAjK5vUMQASaQpN5ltXaz+8NfXxxDvoLz2wYzQp2pbrDMY45JkT0Mxe9od+Wx820Hg2RZKVe/og==",
+      "path": "syncfusion.xamarin.core/20.3.0.52",
+      "hashPath": "syncfusion.xamarin.core.20.3.0.52.nupkg.sha512"
+    },
+    "Syncfusion.Xamarin.SfChart/20.3.0.52": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DQ2j1x+fR91p86IH3D0rfMTGp9WfNskY5gssIqUXizrsUBXRHjsBlQ1E8hWW8FP8rU+qYPjs1h3XzqPK9ODA2Q==",
+      "path": "syncfusion.xamarin.sfchart/20.3.0.52",
+      "hashPath": "syncfusion.xamarin.sfchart.20.3.0.52.nupkg.sha512"
+    },
     "System.CodeDom/6.0.0": {
       "type": "package",
       "serviceable": true,
@@ -2225,6 +2294,13 @@
       "sha512": "sha512-IXoJOXIqc39AIe+CIR7koBtRGMiCt/LPM3lI+PELtDIy9XdyeSrwXFdWV9dzJ2Awl0paLWUaknLxFQ5HpHZUog==",
       "path": "system.windows.extensions/6.0.0",
       "hashPath": "system.windows.extensions.6.0.0.nupkg.sha512"
+    },
+    "Xamarin.Forms/5.0.0.2012": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Rqc6xvWR/sf+Db5+qRCFmuYTWVp04QWRfwPto2/JHbShSy4Ed53Q2jpoFzsoloXkJA6saD236PlaWAhT6vI4gw==",
+      "path": "xamarin.forms/5.0.0.2012",
+      "hashPath": "xamarin.forms.5.0.0.2012.nupkg.sha512"
     }
   }
 }
